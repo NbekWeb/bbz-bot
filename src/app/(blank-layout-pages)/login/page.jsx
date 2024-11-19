@@ -1,4 +1,7 @@
 // Component Imports
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import Login from '@views/Login'
 
 // Server Action Imports
@@ -13,7 +16,12 @@ const LoginPage = () => {
   // Vars
   const mode = getServerMode()
 
-  return <Login mode={mode} />
+  return (
+    <>
+      <ToastContainer />
+      <Login mode={mode} />
+    </>
+  )
 }
 
 export default LoginPage

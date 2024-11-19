@@ -3,21 +3,21 @@
 // }
 
 // Component Imports
-import Dashboard from '@views/Dashboard'
+import Accaunts from '@views/Accaunts'
 
 // Server Action Imports
 import { getServerMode } from '@core/utils/serverHelpers'
 
 export const metadata = {
-  title: 'Дэшборд',
+  title: 'Аккаунты',
   description: 'Dashboard'
 }
 
-const DashboardPage = () => {
+const AccauntsPage = () => {
   // Vars
   const mode = getServerMode()
 
-  return <Dashboard mode={mode} />
+  return <Accaunts mode={mode} />
 }
 
-export default DashboardPage
+export default AccauntsPage

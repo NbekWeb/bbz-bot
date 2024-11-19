@@ -67,9 +67,9 @@ const HorizontalMenu = () => {
         }}
       >
         <MenuItem href='/' icon={<i className='tabler-smart-home' />}>
-          Homes
+          Панель
         </MenuItem>
-        <MenuItem href='/about' icon={<i className='tabler-info-circle' />}>
+        <MenuItem href='/resurs' icon={<i className='tabler-info-circle' />}>
           About
         </MenuItem>
       </Menu>

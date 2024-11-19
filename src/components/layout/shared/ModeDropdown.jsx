@@ -54,10 +54,16 @@ const ModeDropdown = () => {
     }
   }
 
+  const modes = {
+    light: 'Дневной',
+    dark: 'Темный',
+    system: 'Система'
+  }
+
   return (
     <>
       <Tooltip
-        title={settings.mode + ' Mode'}
+        title={modes[settings.mode] + '  Режим'}
         onOpen={() => setTooltipOpen(true)}
         onClose={() => setTooltipOpen(false)}
         open={open ? false : tooltipOpen ? true : false}
@@ -89,7 +95,7 @@ const ModeDropdown = () => {
                     selected={settings.mode === 'light'}
                   >
                     <i className='tabler-sun' />
-                    Light
+                    Дневной
                   </MenuItem>
                   <MenuItem
                     className='gap-3'
@@ -97,7 +103,7 @@ const ModeDropdown = () => {
                     selected={settings.mode === 'dark'}
                   >
                     <i className='tabler-moon-stars' />
-                    Darksa1
+                    Темный
                   </MenuItem>
                   <MenuItem
                     className='gap-3'
@@ -105,7 +111,7 @@ const ModeDropdown = () => {
                     selected={settings.mode === 'system'}
                   >
                     <i className='tabler-device-laptop' />
-                    System
+                    Система
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>

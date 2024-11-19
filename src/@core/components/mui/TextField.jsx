@@ -7,9 +7,12 @@ import { forwardRef } from 'react'
 import { styled } from '@mui/material/styles'
 import TextField from '@mui/material/TextField'
 
-const TextFieldStyled = styled(TextField)(({ theme }) => ({
+const TextFieldStyled = styled(TextField, {
+  shouldForwardProp: prop => prop !== 'customBorderRadius'
+})(({ theme, customBorderRadius }) => ({
   '& .MuiInputLabel-root': {
     transform: 'none',
+
     width: 'fit-content',
     maxWidth: '100%',
     lineHeight: 1.153,
@@ -37,7 +40,8 @@ const TextFieldStyled = styled(TextField)(({ theme }) => ({
       display: 'none'
     },
     '&.MuiInputBase-sizeSmall': {
-      borderRadius: 'var(--mui-shape-borderRadius)'
+      height: '36px',
+      borderRadius: customBorderRadius || 'var(--mui-shape-borderRadius)'
     },
     '&.Mui-error': {
       borderColor: 'var(--mui-palette-error-main)'
@@ -246,11 +250,12 @@ const TextFieldStyled = styled(TextField)(({ theme }) => ({
 }))
 
 const CustomTextField = forwardRef((props, ref) => {
-  const { size = 'small', InputLabelProps, ...rest } = props
+  const { size = 'small', InputLabelProps, customBorderRadius, ...rest } = props
 
   return (
     <TextFieldStyled
       size={size}
+      customBorderRadius={customBorderRadius}
       inputRef={ref}
       {...rest}
       variant='filled'

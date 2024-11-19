@@ -242,7 +242,7 @@ const Customizer = ({ breakpoint = 'lg', dir = 'ltr', disableDirection = false }
                 </div>
               </div>
               <div className='flex flex-col gap-2'>
-                <p className='font-medium'>Mode</p>
+                <p className='font-medium'>Mode sa1</p>
                 <div className='flex items-center justify-between'>
                   <div className='flex flex-col items-start gap-0.5'>
                     <div
@@ -267,7 +267,7 @@ const Customizer = ({ breakpoint = 'lg', dir = 'ltr', disableDirection = false }
                       <i className='tabler-moon-stars text-[30px]' />
                     </div>
                     <p className={styles.itemLabel} onClick={() => handleChange('mode', 'dark')}>
-                      Darksa
+                      Darksa sa
                     </p>
                   </div>
                   <div className='flex flex-col items-start gap-0.5'>

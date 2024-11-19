@@ -32,11 +32,12 @@ const sources = {
     // 'json/gg.json'
   ],
 
-   icons: [
+  icons: [
     'bx-basket',
     'bi-airplane-engines',
     'ri-anchor-line',
     'uit-adobe-alt',
+    'bx-comment-detail',
 
     // 'fa6-regular-comment',
     'twemoji-auto-rickshaw'

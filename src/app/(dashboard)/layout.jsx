@@ -1,6 +1,9 @@
 // MUI Imports
 import Button from '@mui/material/Button'
 
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 // Layout Imports
 import LayoutWrapper from '@layouts/LayoutWrapper'
 import VerticalLayout from '@layouts/VerticalLayout'
@@ -25,30 +28,28 @@ const Layout = async ({ children }) => {
   const systemMode = getSystemMode()
 
   return (
-    <Providers direction={direction}>
-      <LayoutWrapper
-        systemMode={systemMode}
-        verticalLayout={
-          <VerticalLayout
-            navigation={<Navigation mode={mode} systemMode={systemMode} />}
-            navbar={<Navbar />}
-
+    <>
+      <ToastContainer />
+      <Providers direction={direction}>
+        <LayoutWrapper
+          systemMode={systemMode}
+          verticalLayout={
+            <VerticalLayout navigation={<Navigation mode={mode} systemMode={systemMode} />} navbar={<Navbar />}>
+              {children}
+            </VerticalLayout>
+          }
+          horizontalLayout={<HorizontalLayout header={<Header />}>{children}</HorizontalLayout>}
+        />
+        <ScrollToTop className='mui-fixed'>
+          <Button
+            variant='contained'
+            className='flex items-center justify-center p-0 rounded-full is-10 bs-10 min-is-0'
           >
-            {children}
-          </VerticalLayout>
-        }
-        horizontalLayout={
-          <HorizontalLayout header={<Header />}>
-            {children}
-          </HorizontalLayout>
-        }
-      />
-      <ScrollToTop className='mui-fixed'>
-        <Button variant='contained' className='flex items-center justify-center p-0 rounded-full is-10 bs-10 min-is-0'>
-          <i className='tabler-arrow-up' />
-        </Button>
-      </ScrollToTop>
-    </Providers>
+            <i className='tabler-arrow-up' />
+          </Button>
+        </ScrollToTop>
+      </Providers>
+    </>
   )
 }
 

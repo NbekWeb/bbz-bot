@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react'
 // Next Imports
 import { useRouter } from 'next/navigation'
 
+import { toast } from 'react-toastify'
+
 // MUI Imports
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
@@ -113,7 +115,7 @@ const LoginV2 = ({ mode }) => {
       localStorage.setItem('access_token', access)
       router.push('/') // Redirect after successful login
     } catch (error) {
-      setError('Login failed. Please check your credentials.')
+      toast.error('Логин или пароль неверны!')
     }
   }
 
