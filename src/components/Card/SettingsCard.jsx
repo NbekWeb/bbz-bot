@@ -41,7 +41,7 @@ const Progress = ({ startTimeProp, endTimeProp, saveNew, count }) => {
     saveNew(startTime, endTime, number)
   }
 
-  const clear=()=>{
+  const clear = () => {
     setStartTime(startTimeProp)
     setEndTime(endTimeProp)
     setNumber(count)

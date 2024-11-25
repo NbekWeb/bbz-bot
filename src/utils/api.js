@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: `https://app.bbz.bot/api/`
+  baseURL: `http://app.bbz.bot/api/`
 })
 
 export const api = ({ url, open = false, ...props }) => {

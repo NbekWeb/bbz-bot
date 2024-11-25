@@ -16,7 +16,7 @@ import Capcha from '@/components/Resurs/Capcha'
 import { api } from '@/utils/api'
 
 const DataCard = () => {
-  const [selectedIndex, setSelectedIndex] = useState(2)
+  const [selectedIndex, setSelectedIndex] = useState(0)
   const [proxyData, setProxyData] = useState({})
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
@@ -122,8 +122,8 @@ const DataCard = () => {
         </div>
       </div>
       <Card>
-        <CardContent>
-          <div className='grid grid-cols-4 gap-4'>
+        <CardContent className='flex items-center py-3 '>
+          <div className='grid w-full grid-cols-4 gap-4'>
             <div
               className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md ${
                 selectedIndex === 0 ? 'bg-main-500 shadow' : ''

@@ -13,6 +13,8 @@ import useVerticalNav from '@menu/hooks/useVerticalNav'
 // Styled Component Imports
 import StyledVerticalNavExpandIcon from '@menu/styles/vertical/StyledVerticalNavExpandIcon'
 
+import Icon from '../../icon/Icon'
+
 // Style Imports
 import menuItemStyles from '@core/styles/vertical/menuItemStyles'
 import menuSectionStyles from '@core/styles/vertical/menuSectionStyles'
@@ -56,16 +58,18 @@ const VerticalMenu = ({ scrollMenu }) => {
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
         <MenuItem href='/home' icon={<i className='tabler-smart-home' />}>
-        Панель
+          Панель
         </MenuItem>
         <MenuItem href='/resurs' icon={<i className='tabler-layout-board-split' />}>
-        Ресурсы
+          Ресурсы
         </MenuItem>
         <MenuItem href='/accaunts' icon={<i className='tabler-user' />}>
-        Аккаунты
+          Аккаунты
+        </MenuItem>
+        <MenuItem href='/buyout' icon={<icon className='tabler-chart-bar' />}>
+          Выкупы
         </MenuItem>
       </Menu>
-    
     </ScrollWrapper>
   )
 }

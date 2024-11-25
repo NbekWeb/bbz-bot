@@ -75,8 +75,8 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
             />
             <Button variant='contained' color='primary' onClick={handleAdd}>
               <div className='flex items-center gap-1'>
-                <span>
-                  <Icon type='add' width='16' className='' />
+                <span className='flex items-center h-[18px]'>
+                  <Icon type='add' width='18' className='' />
                 </span>
                 <span>Добавить</span>
               </div>
@@ -128,8 +128,8 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
             </table>
           </div>
           {data?.results?.length > 0 && (
-            <div className='flex justify-between items-center mt-5'>
-              <div className='flex gap-3 items-center'>
+            <div className='flex items-center justify-between mt-5'>
+              <div className='flex items-center gap-3'>
                 <div className='text-sm'>
                   {data.results.length} из {data?.count} аккаунтов
                 </div>

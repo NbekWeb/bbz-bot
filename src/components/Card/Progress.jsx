@@ -61,56 +61,60 @@ const Progress = ({ data = {}, title = 'Vehicle ', icon = 'bxs-truck', onDateCha
           />
         </div>
         <div className='flex flex-col gap-6'>
-          <div className='flex w-full'>
-            <div
-              style={{ width: successWidth }}
-              className={classnames(styles.linearRound, 'flex flex-col gap-[34px] relative')}
-            >
-              <LinearProgress
-                variant='determinate'
-                value={-1}
-                className={classnames('bs-[46px] bg-green-500')}
-                sx={{
-                  borderRadius: 0
-                }}
-              />
-              <Typography variant='body2' className='absolute font-medium text-white bottom-3 start-2'>
-                {successWidth}
-              </Typography>
+          {total == 0 ? (
+            <div className='flex justify-center items-center'>Ничего в этот период</div>
+          ) : (
+            <div className='flex w-full'>
+              <div
+                style={{ width: successWidth }}
+                className={classnames(styles.linearRound, 'flex flex-col gap-[34px] relative')}
+              >
+                <LinearProgress
+                  variant='determinate'
+                  value={-1}
+                  className={classnames('bs-[46px] bg-green-500')}
+                  sx={{
+                    borderRadius: 0
+                  }}
+                />
+                <Typography variant='body2' className='absolute font-medium text-white bottom-3 start-2'>
+                  {successWidth}
+                </Typography>
+              </div>
+              <div
+                style={{ width: errorWidth }}
+                className={classnames(styles.linearRound, 'flex flex-col gap-[34px] relative')}
+              >
+                <LinearProgress
+                  variant='determinate'
+                  value={-1}
+                  className={classnames('bs-[46px] bg-red-500')}
+                  sx={{
+                    borderRadius: 0
+                  }}
+                />
+                <Typography variant='body2' className='absolute font-medium text-white bottom-3 start-2'>
+                  {errorWidth}
+                </Typography>
+              </div>
+              <div
+                style={{ width: progressWidth }}
+                className={classnames(styles.linearRound, 'flex flex-col gap-[34px] relative')}
+              >
+                <LinearProgress
+                  variant='determinate'
+                  value={-1}
+                  className={classnames('bs-[46px] bg-main-500')}
+                  sx={{
+                    borderRadius: 0
+                  }}
+                />
+                <Typography variant='body2' className='absolute font-medium text-white bottom-3 start-2'>
+                  {progressWidth}
+                </Typography>
+              </div>
             </div>
-            <div
-              style={{ width: errorWidth }}
-              className={classnames(styles.linearRound, 'flex flex-col gap-[34px] relative')}
-            >
-              <LinearProgress
-                variant='determinate'
-                value={-1}
-                className={classnames('bs-[46px] bg-red-500')}
-                sx={{
-                  borderRadius: 0
-                }}
-              />
-              <Typography variant='body2' className='absolute font-medium text-white bottom-3 start-2'>
-                {errorWidth}
-              </Typography>
-            </div>
-            <div
-              style={{ width: progressWidth }}
-              className={classnames(styles.linearRound, 'flex flex-col gap-[34px] relative')}
-            >
-              <LinearProgress
-                variant='determinate'
-                value={-1}
-                className={classnames('bs-[46px] bg-main-500')}
-                sx={{
-                  borderRadius: 0
-                }}
-              />
-              <Typography variant='body2' className='absolute font-medium text-white bottom-3 start-2'>
-                {progressWidth}
-              </Typography>
-            </div>
-          </div>
+          )}
           <div className='overflow-x-auto'>
             <table className={tableStyles.table}>
               <tbody>

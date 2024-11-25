@@ -274,7 +274,219 @@ const Icon = ({ width = '24px', type = 'default' }) => {
             />
           </svg>
         )
-
+      case 'plus':
+        return (
+          <svg width={width} height={width} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M12 5V19M5 12H19'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case '123':
+        return (
+          <svg width={width} height={width} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M3 10L5 8V16M9 8H12C12.2652 8 12.5196 8.10536 12.7071 8.29289C12.8946 8.48043 13 8.73478 13 9V11C13 11.2652 12.8946 11.5196 12.7071 11.7071C12.5196 11.8946 12.2652 12 12 12H10C9.73478 12 9.48043 12.1054 9.29289 12.2929C9.10536 12.4804 9 12.7348 9 13V15C9 15.2652 9.10536 15.5196 9.29289 15.7071C9.48043 15.8946 9.73478 16 10 16H13M17 8H19.5C19.8978 8 20.2794 8.15804 20.5607 8.43934C20.842 8.72064 21 9.10218 21 9.5V10.5C21 10.8978 20.842 11.2794 20.5607 11.5607C20.2794 11.842 19.8978 12 19.5 12M19.5 12H18M19.5 12C19.8978 12 20.2794 12.158 20.5607 12.4393C20.842 12.7206 21 13.1022 21 13.5V14.5C21 14.8978 20.842 15.2794 20.5607 15.5607C20.2794 15.842 19.8978 16 19.5 16H17'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case 'tabler':
+        return (
+          <svg width={width} height={width} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M14 7H20M17 4V10M4 5C4 4.73478 4.10536 4.48043 4.29289 4.29289C4.48043 4.10536 4.73478 4 5 4H9C9.26522 4 9.51957 4.10536 9.70711 4.29289C9.89464 4.48043 10 4.73478 10 5V9C10 9.26522 9.89464 9.51957 9.70711 9.70711C9.51957 9.89464 9.26522 10 9 10H5C4.73478 10 4.48043 9.89464 4.29289 9.70711C4.10536 9.51957 4 9.26522 4 9V5ZM4 15C4 14.7348 4.10536 14.4804 4.29289 14.2929C4.48043 14.1054 4.73478 14 5 14H9C9.26522 14 9.51957 14.1054 9.70711 14.2929C9.89464 14.4804 10 14.7348 10 15V19C10 19.2652 9.89464 19.5196 9.70711 19.7071C9.51957 19.8946 9.26522 20 9 20H5C4.73478 20 4.48043 19.8946 4.29289 19.7071C4.10536 19.5196 4 19.2652 4 19V15ZM14 15C14 14.7348 14.1054 14.4804 14.2929 14.2929C14.4804 14.1054 14.7348 14 15 14H19C19.2652 14 19.5196 14.1054 19.7071 14.2929C19.8946 14.4804 20 14.7348 20 15V19C20 19.2652 19.8946 19.5196 19.7071 19.7071C19.5196 19.8946 19.2652 20 19 20H15C14.7348 20 14.4804 19.8946 14.2929 19.7071C14.1054 19.5196 14 19.2652 14 19V15Z'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case 'circle':
+        return (
+          <svg width={width} height={width} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M3 12C3 13.1819 3.23279 14.3522 3.68508 15.4442C4.13738 16.5361 4.80031 17.5282 5.63604 18.364C6.47177 19.1997 7.46392 19.8626 8.55585 20.3149C9.64778 20.7672 10.8181 21 12 21C13.1819 21 14.3522 20.7672 15.4442 20.3149C16.5361 19.8626 17.5282 19.1997 18.364 18.364C19.1997 17.5282 19.8626 16.5361 20.3149 15.4442C20.7672 14.3522 21 13.1819 21 12C21 10.8181 20.7672 9.64778 20.3149 8.55585C19.8626 7.46392 19.1997 6.47177 18.364 5.63604C17.5282 4.80031 16.5361 4.13738 15.4442 3.68508C14.3522 3.23279 13.1819 3 12 3C10.8181 3 9.64778 3.23279 8.55585 3.68508C7.46392 4.13738 6.47177 4.80031 5.63604 5.63604C4.80031 6.47177 4.13738 7.46392 3.68508 8.55585C3.23279 9.64778 3 10.8181 3 12Z'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case 'checks':
+        return (
+          <svg width={width} height={width} viewBox='0 0 26 26' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M7.5835 13L13.0002 18.4167L23.8335 7.58333'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+            <path
+              d='M2.69683 12.4697C2.40394 12.1768 1.92907 12.1768 1.63617 12.4697C1.34328 12.7626 1.34328 13.2374 1.63617 13.5303L2.69683 12.4697ZM7.05284 18.947C7.34573 19.2399 7.82061 19.2399 8.1135 18.947C8.40639 18.6541 8.40639 18.1792 8.1135 17.8863L7.05284 18.947ZM12.4695 12.4697C12.1766 12.7626 12.1766 13.2374 12.4695 13.5303C12.7624 13.8232 13.2373 13.8232 13.5302 13.5303L12.4695 12.4697ZM18.9468 8.11366C19.2397 7.82077 19.2397 7.34589 18.9468 7.053C18.6539 6.7601 18.1791 6.7601 17.8862 7.053L18.9468 8.11366ZM1.63617 13.5303L7.05284 18.947L8.1135 17.8863L2.69683 12.4697L1.63617 13.5303ZM13.5302 13.5303L18.9468 8.11366L17.8862 7.053L12.4695 12.4697L13.5302 13.5303Z'
+              fill='currentColor'
+              fillOpacity='0.9'
+            />
+          </svg>
+        )
+      case 'calendar':
+        return (
+          <svg width={width} height={width} viewBox='0 0 26 26' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M12.7779 22.75H5.41667C4.22005 22.75 3.25 21.78 3.25 20.5833V7.58334C3.25 6.38672 4.22005 5.41667 5.41667 5.41667H18.4167C19.6133 5.41667 20.5833 6.38672 20.5833 7.58334V11.9167'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+            <path
+              d='M19.5 15.1667V19.5H23.8333'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+            <circle
+              cx='19.4998'
+              cy='19.5'
+              r='4.33333'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+            <path
+              d='M16.2502 3.25V7.58333'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+            <path
+              d='M7.58317 3.25V7.58333'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+            <path
+              d='M3.25 11.9167H20.5833'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case 'alert':
+        return (
+          <svg width={width} height={width} viewBox='0 0 26 26' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              fillRule='evenodd'
+              clipRule='evenodd'
+              d='M9.425 3.25H16.575C16.9 3.25 17.1167 3.35833 17.3333 3.575L22.425 8.66667C22.6417 8.88333 22.75 9.1 22.75 9.425V16.575C22.75 16.9 22.6417 17.1167 22.425 17.3333L17.3333 22.425C17.1167 22.6417 16.9 22.75 16.575 22.75H9.425C9.1 22.75 8.88333 22.6417 8.66667 22.425L3.575 17.3333C3.35833 17.1167 3.25 16.9 3.25 16.575V9.425C3.25 9.1 3.35833 8.88333 3.575 8.66667L8.66667 3.575C8.88333 3.35833 9.1 3.25 9.425 3.25Z'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+            <path
+              d='M13.0002 8.66667V13'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+            <path
+              d='M13.0001 17.3333H13.011'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case 'plus-copy':
+        return (
+          <svg width={width} height={width} viewBox='0 0 17 18' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M2.84183 12.3554C2.62462 12.2315 2.44394 12.0526 2.31807 11.8365C2.19221 11.6205 2.1256 11.375 2.125 11.125V4.04167C2.125 3.2625 2.7625 2.625 3.54167 2.625H10.625C11.1562 2.625 11.4452 2.89771 11.6875 3.33333M7.79167 10.4167H12.0417M9.91667 8.29167V12.5417M4.95833 7.34746C4.95833 6.84643 5.15737 6.36592 5.51165 6.01165C5.86592 5.65737 6.34643 5.45833 6.84746 5.45833H12.9859C13.234 5.45833 13.4796 5.5072 13.7088 5.60213C13.938 5.69707 14.1463 5.83622 14.3217 6.01165C14.4971 6.18707 14.6363 6.39532 14.7312 6.62452C14.8261 6.85372 14.875 7.09937 14.875 7.34746V13.4859C14.875 13.734 14.8261 13.9796 14.7312 14.2088C14.6363 14.438 14.4971 14.6463 14.3217 14.8217C14.1463 14.9971 13.938 15.1363 13.7088 15.2312C13.4796 15.3261 13.234 15.375 12.9859 15.375H6.84746C6.59937 15.375 6.35372 15.3261 6.12452 15.2312C5.89532 15.1363 5.68707 14.9971 5.51165 14.8217C5.33622 14.6463 5.19707 14.438 5.10213 14.2088C5.0072 13.9796 4.95833 13.734 4.95833 13.4859V7.34746Z'
+              stroke='currentColor'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case 'delete':
+        return (
+          <svg width={width} height={width} viewBox='0 0 17 18' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M2.83325 5.45833H14.1666M3.54159 5.45833L4.24992 13.9583C4.24992 14.3341 4.39917 14.6944 4.66485 14.9601C4.93053 15.2257 5.29086 15.375 5.66659 15.375H11.3333C11.709 15.375 12.0693 15.2257 12.335 14.9601C12.6007 14.6944 12.7499 14.3341 12.7499 13.9583L13.4583 5.45833M6.37492 5.45833V3.33333C6.37492 3.14547 6.44955 2.9653 6.58238 2.83247C6.71522 2.69963 6.89539 2.625 7.08325 2.625H9.91659C10.1044 2.625 10.2846 2.69963 10.4175 2.83247C10.5503 2.9653 10.6249 3.14547 10.6249 3.33333V5.45833M7.08325 9L9.91659 11.8333M9.91659 9L7.08325 11.8333'
+              stroke='currentColor'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case 'minus':
+        return (
+          <svg width={width} height={width} viewBox='0 0 17 18' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M5.5835 9H11.4168'
+              stroke='currentColor'
+              strokeOpacity='0.16'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case 'save':
+        return (
+          <svg width={width} height={width} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M14 4V8H8V4M6 4H16L20 8V18C20 18.5304 19.7893 19.0391 19.4142 19.4142C19.0391 19.7893 18.5304 20 18 20H6C5.46957 20 4.96086 19.7893 4.58579 19.4142C4.21071 19.0391 4 18.5304 4 18V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4ZM10 14C10 14.5304 10.2107 15.0391 10.5858 15.4142C10.9609 15.7893 11.4696 16 12 16C12.5304 16 13.0391 15.7893 13.4142 15.4142C13.7893 15.0391 14 14.5304 14 14C14 13.4696 13.7893 12.9609 13.4142 12.5858C13.0391 12.2107 12.5304 12 12 12C11.4696 12 10.9609 12.2107 10.5858 12.5858C10.2107 12.9609 10 13.4696 10 14Z'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
+      case 'chevron':
+        return (
+          <svg width={width} height={width} viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M5.5 8.25L11 13.75L16.5 8.25'
+              stroke='currentColor'
+              strokeOpacity='0.9'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
       default:
         return (
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' width={width} height={width}>

@@ -165,7 +165,7 @@ const DataCard = () => {
 
   return (
     <div className=''>
-      <div className='flex items-center gap-2 my-8'>
+      <div className='flex items-center gap-2 mb-8'>
         <span className='text-2xl font-medium'>Прокси</span>
         <div className='flex items-center h-full gap-1 pt-1 text-main-500'>
           <Icon type='info' width='24' />

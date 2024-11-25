@@ -131,3 +131,15 @@ code {
   background-color: rgb(var(--mui-palette-info-mainChannel) / 0.08);
   border: 0;
 }
+
+.adding .mui-lg4s9l-MuiFormControl-root-MuiTextField-root .MuiInputBase-root.MuiInputBase-sizeSmall {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+
+  height: 36px !important;
+}
+
+.shadow-c:hover {
+  box-shadow: 0px 2px 6px rgb(115 103 240 / 0.3);
+  border: 2px solid #7367f0 !important;
+}

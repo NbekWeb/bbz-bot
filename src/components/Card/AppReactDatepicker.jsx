@@ -38,7 +38,7 @@ const StyledReactDatePicker = styled(Box)(({ theme }) => {
         padding: 0,
         border: 'none',
         fontWeight: 'normal',
-        display: 'none',
+      
         backgroundColor: 'var(--mui-palette-background-paper)',
         '& .react-datepicker__current-month, &.react-datepicker-year-header': {
           textAlign: 'left'

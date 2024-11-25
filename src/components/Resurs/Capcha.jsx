@@ -41,8 +41,8 @@ const Sms = ({ onAdd }) => {
               />
               <Button variant='contained' color='primary' onClick={handleAdd}>
                 <div className='flex items-center gap-1'>
-                  <span className=''>
-                    <Icon type='save' width='24' className='' />
+                  <span className='flex items-center h-[18px]'>
+                    <Icon type='save' width='18' className='' />
                   </span>
                   <span>Сохранить</span>
                 </div>

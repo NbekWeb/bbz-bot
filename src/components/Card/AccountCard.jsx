@@ -22,7 +22,6 @@ import tableStyles from '@core/styles/table.module.css'
 import CustomAvatar from '@core/components/mui/Avatar'
 
 const Progress = ({ data = {} }) => {
-
   return (
     <Card>
       <CardContent>

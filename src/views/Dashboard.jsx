@@ -38,13 +38,22 @@ const Dashboard = () => {
     fetchReviewData(dayjs(newDate).format('YYYY-MM-DD'))
   }
 
-  const fetchBuyoutData = async () => {
+  const handleReviewdate2 = async newDate => {
+    fetchBuyoutData(dayjs(newDate).format('YYYY-MM-DD'))
+  }
+
+  const handleReviewdate3 = async newDate => {
+    fetchRecieptData(dayjs(newDate).format('YYYY-MM-DD'))
+  }
+
+  const fetchBuyoutData = async (date = '') => {
     changeLoading(1)
 
     try {
       const response = await api({
         url: '/buyout-task/count/',
-        method: 'GET'
+        method: 'GET',
+        params: { date }
       })
 
       setBuyoutData(response.data)
@@ -73,13 +82,14 @@ const Dashboard = () => {
     }
   }
 
-  const fetchRecieptData = async () => {
+  const fetchRecieptData = async (date = '') => {
     changeLoading(1)
 
     try {
       const response = await api({
         url: '/receipt/count/',
-        method: 'GET'
+        method: 'GET',
+        params: { date }
       })
 
       setRecieptData(response.data)
@@ -158,9 +168,9 @@ const Dashboard = () => {
   return (
     <div className='flex flex-col'>
       <div className='grid w-full grid-cols-3 gap-6'>
-        <ProgressCard data={buyoutData} title='Выкупы' icon='buyout' onDateChange={handleReviewdate} />
+        <ProgressCard data={buyoutData} title='Выкупы' icon='buyout' onDateChange={handleReviewdate2} />
         <ProgressCard data={reviewData} title='Отзывы' icon='comment' onDateChange={handleReviewdate} />
-        <ProgressCard data={recieptData} title='Получение' icon='truck' onDateChange={handleReviewdate} />
+        <ProgressCard data={recieptData} title='Получение' icon='truck' onDateChange={handleReviewdate3} />
       </div>
       <div className='grid w-full grid-cols-3 gap-6 mt-6 '>
         <BudjetCard data={budgetData} />
