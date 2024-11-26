@@ -130,7 +130,7 @@ const DataCard = () => {
               }`}
               onClick={() => handleSelect(0)}
             >
-              <Icon type='proxy' width='24'></Icon>
+              <Icon type='proxy' width='24'/>
               <span>Прокси</span>
             </div>
             <div
@@ -139,7 +139,7 @@ const DataCard = () => {
               }`}
               onClick={() => handleSelect(1)}
             >
-              <Icon type='sms' width='24'></Icon>
+              <Icon type='sms' width='24'/>
               <span>Смс</span>
             </div>
             <div
@@ -148,7 +148,7 @@ const DataCard = () => {
               }`}
               onClick={() => handleSelect(2)}
             >
-              <Icon type='capcha' width='24'></Icon>
+              <Icon type='capcha' width='24'/>
               <span>Капча</span>
             </div>
             <div
@@ -157,7 +157,7 @@ const DataCard = () => {
               }`}
               onClick={() => handleSelect(3)}
             >
-              <Icon type='tg' width='24'></Icon>
+              <Icon type='tg' width='24'/> 
               <span>Телеграм</span>
             </div>
           </div>
