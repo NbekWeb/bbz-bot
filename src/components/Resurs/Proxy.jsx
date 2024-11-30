@@ -10,6 +10,10 @@ import Pagination from '@mui/material/Pagination'
 import MenuItem from '@mui/material/MenuItem'
 import Dialog from '@mui/material/Dialog'
 
+import { toast } from 'react-toastify'
+
+import { api } from '@/utils/api'
+
 import CustomTextField from '@core/components/mui/TextField'
 
 import tableStyles from '@core/styles/table.module.css'
@@ -21,6 +25,8 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
   const [page, setPage] = useState(1)
   const [count, setCount] = useState(10)
   const [open, setOpen] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [selectedEmail, setSelectedEmail] = useState('')
 
   const handleAdd = () => {
     if (onAdd) onAdd(email)
@@ -39,22 +45,84 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
     }
   }
 
-  // const handleClickOpen = (i) => {
-  //   setOpen(true)
+  const handleClickOpen = i => {
+    setOpen(true)
+    setSelectedIndex(i)
 
-  //   console.log('sa1',i)
-  // }
+    setSelectedEmail(data.results[i]?.proxy)
+  }
 
-  // const handleDialogClose = () => {
-  //   setOpen(false)
-  // }
+  const handleDialogClose = () => {
+    setOpen(false)
+  }
+
+  const updateProxy = async newdata => {
+    try {
+      const response = await api({
+        url: `/proxy/${data.results[selectedIndex]?.id}/`,
+        method: 'PATCH',
+        data: newdata
+      })
+
+      toast.success('Proxy обновлён!')
+      setOpen(false)
+      pagination({ page: 1, page_size: count })
+      setPage(1)
+    } catch (error) {
+      toast.error('Что-то пошло не так!')
+    }
+  }
+
+  const deleteProxy = async id => {
+    try {
+      const response = await api({
+        url: `/proxy/${id}/`,
+        method: 'DELETE'
+      })
+
+      toast.success('Proxy удалён!')
+      pagination({ page: 1, page_size: count })
+      setPage(1)
+    } catch (error) {
+      toast.error('Не удалось удалить прокси!')
+    }
+  }
 
   return (
     <div>
-      {/* onClose={handleDialogClose} */}
-      {/* <Dialog aria-labelledby='simple-dialog-title' open={open} onClose={handleDialogClose}>
+      <Dialog aria-labelledby='simple-dialog-title' open={open} onClose={handleDialogClose}>
+        <div className='p-6 min-w-[500px]'>
+          <div className='flex justify-between items-center mb-6'>
+            <h4 className=''>Редактировать прокси</h4>
 
-      </Dialog> */}
+            <span className='text-main-500'>
+              <Icon type='close' width='24px' />
+            </span>
+          </div>
+          <CustomTextField
+            fullWidth
+            name='name'
+            autoComplete='off'
+            placeholder='login:password@ip:port'
+            value={selectedEmail}
+            onChange={e => setSelectedEmail(e.target.value)}
+          />
+          <div className='flex justify-end items-center mt-4 gap-4'>
+            <Button variant='outlined' color='error' onClick={handleDialogClose}>
+              Отменить
+            </Button>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={() => {
+                updateProxy({ proxy: selectedEmail })
+              }}
+            >
+              Сохранить
+            </Button>
+          </div>
+        </div>
+      </Dialog>
       <div className='flex items-center gap-2 my-8'>
         <span className='text-2xl font-medium'>Прокси</span>
         <div className='flex items-center h-full gap-1 pt-1 text-main-500'>
@@ -111,13 +179,13 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
                       </td>
                       <td className=' pis-0'>
                         <span className='flex items-center gap-3 '>
-                          <span className='hover:text-main-500'>
+                          <span className='hover:text-main-500' onClick={() => handleClickOpen(i)}>
                             <Icon type='edit' width={20} />
                           </span>
                           <span className='hover:text-main-500'>
                             <Icon type='speed' width={20} />
                           </span>
-                          <span className='hover:text-red-500'>
+                          <span className='hover:text-red-500' onClick={() => deleteProxy(item.id)}>
                             <Icon type='delete' width={20} />
                           </span>
                         </span>

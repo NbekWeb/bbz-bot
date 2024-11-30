@@ -1,22 +1,41 @@
 'use client'
 import { useState } from 'react'
 
+import { useRouter } from 'next/navigation'
+
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Switch from '@mui/material/Switch'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Button from '@mui/material/Button'
+
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+
+import { toast } from 'react-toastify'
+
 import { api } from '@/utils/api'
 
 import Icon from '../icon/Icon'
 
 import CheckArtikul from './CheckArtikul'
 import Article from './Article'
+import ArticleCard from './ArticleCard'
+import CustomTextField from '@core/components/mui/TextField' // Assuming this is where the TextField component is imported
 
 const DataCard = () => {
-  const [adds, SetAdds] = useState({
+  const router = useRouter()
+
+  const [adds, setAdds] = useState({
     group_name: '',
     one_cart: false,
     articles: []
   })
 
+  dayjs.extend(customParseFormat)
+
   const handleSaveCount = (newCount, index) => {
-    SetAdds(prev => {
+    setAdds(prev => {
       const updatedArticles = [...prev.articles]
       const currentItems = updatedArticles[index].items
 
@@ -28,14 +47,14 @@ const DataCard = () => {
         const itemsToAdd = newCount - currentItems.length
 
         const newItems = Array.from({ length: itemsToAdd }).map(() => ({
-          price: 0,
-          count: 0,
-          size: '',
-          account_gender: '',
+          price: prev.articles[index]?.price,
+          count: 1,
+          size: prev.articles[index]?.sizes?.[0],
+          account_gender: 'случайный',
           keyword: '',
           delivery_place: ''
         }))
-        
+
         updatedArticles[index].items = [...currentItems, ...newItems]
       }
 
@@ -44,10 +63,55 @@ const DataCard = () => {
   }
 
   const handleAddArticles = newArticles => {
-    SetAdds(prev => ({
+    setAdds(prev => ({
       ...prev,
       articles: [...newArticles, ...prev.articles]
     }))
+  }
+
+  const handleItemUpdate = (updatedItems, index) => {
+    setAdds(prev => {
+      const updatedArticles = [...prev.articles]
+
+      updatedArticles[index] = updatedItems
+
+      return { ...prev, articles: updatedArticles }
+    })
+  }
+
+  const saveArticles = async data => {
+    try {
+      const updatedData = {
+        ...data,
+        articles: data.articles.map(article => {
+          const { sizes, image, date, ...rest } = article
+          const formattedDate = dayjs(date, 'DD-MM-YYYY').format('YYYY-MM-DD')
+
+          return { ...rest, date: formattedDate }
+        })
+      }
+
+      const response = await api({
+        url: '/buyout/create/',
+        method: 'POST',
+        data: updatedData
+      })
+
+      toast.success('Выкупы добавлены!')
+
+      router.push('/buyout')
+    } catch (error) {
+      toast.error('Что-то пошло не так!')
+      console.error('Error fetching receipt data:', error)
+    }
+  }
+
+  const deleteArticle = index => () => {
+    setAdds(prev => {
+      const updatedArticles = prev.articles.filter((_, i) => i !== index)
+
+      return { ...prev, articles: updatedArticles }
+    })
   }
 
   return (
@@ -59,12 +123,67 @@ const DataCard = () => {
           <Icon type='youtube' width='24' />
         </div>
       </div>
+
       <div className='flex flex-col gap-6'>
         <CheckArtikul onAddArticles={handleAddArticles} />
 
         {adds.articles.map((item, i) => (
-          <Article key={i} item={item} onSaveCount={newCount => handleSaveCount(newCount, i)} />
+          <Article
+            key={i}
+            onDeleteArticle={deleteArticle(i)}
+            article={item}
+            onSaveCount={newCount => handleSaveCount(newCount, i)}
+            onItemUpdate={updatedItems => handleItemUpdate(updatedItems, i)}
+          />
         ))}
+
+        {adds.articles.length > 0 && (
+          <div className='mt-6'>
+            <Card>
+              <CardContent>
+                <div className='grid grid-cols-4 gap-6 mb-10'>
+                  {adds.articles.map((item, i) => (
+                    <ArticleCard full={true} article={item} key={i} type='row' />
+                  ))}
+                </div>
+
+                <div className='flex gap-5 mb-4'>
+                  <div className='flex-grow'>
+                    <CustomTextField
+                      fullWidth
+                      name='name'
+                      autoComplete='off'
+                      placeholder='Введите название группы'
+                      value={adds.group_name}
+                      onChange={e => setAdds(prev => ({ ...prev, group_name: e.target.value }))}
+                    />
+                  </div>
+
+                  <div className='flex items-center'>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={adds.one_cart}
+                          onChange={() => setAdds(prev => ({ ...prev, one_cart: !prev.one_cart }))}
+                        />
+                      }
+                      label='Выкупить одной корзиной'
+                    />
+                  </div>
+                </div>
+                <Button
+                  fullWidth
+                  variant='contained'
+                  onClick={() => {
+                    saveArticles({ ...adds })
+                  }}
+                >
+                  Добавить
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   )

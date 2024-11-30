@@ -4,8 +4,11 @@ import Card from '@mui/material/Card'
 import { useTheme } from '@mui/material/styles'
 import CardContent from '@mui/material/CardContent'
 import MenuItem from '@mui/material/MenuItem'
+import Typography from '@mui/material/Typography'
 
 import CustomTextField from '@core/components/mui/TextField'
+import tableStyles from '@core/styles/table.module.css'
+
 import AppReactApexCharts from './AppReactApexCharts'
 
 const CommentCard = ({ seriesData, onStatusChange, period }) => {
@@ -116,6 +119,54 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
           ) : (
             <AppReactApexCharts type='donut' width={150} height={177} series={[success, denied]} options={options} />
           )}
+           <div className='overflow-x-auto mt-6'>
+            <table className={tableStyles.table}>
+              <tbody>
+                <tr>
+                  <td className='flex items-center gap-2 pis-0'>
+                    <Typography color='text.primary'>
+                      <span className='flex items-center gap-1'>
+                        <span className='flex w-3 h-3 rounded-full bg-grey-500'></span>
+                        Проверено
+                      </span>
+                    </Typography>
+                  </td>
+
+                  <td className='text-end pie-0'>
+                    <Typography>{total}</Typography>
+                  </td>
+                </tr>
+                <tr>
+                  <td className='flex items-center gap-2 pis-0'>
+                    <Typography color='text.primary'>
+                      <span className='flex items-center gap-1'>
+                        <span className='flex w-3 h-3 bg-green-500 rounded-full'></span>
+                        Прошло
+                      </span>
+                    </Typography>
+                  </td>
+
+                  <td className='text-end pie-0'>
+                    <Typography>{success}</Typography>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className='flex items-center gap-2 pis-0'>
+                    <Typography color='text.primary'>
+                      <span className='flex items-center gap-1'>
+                        <span className='flex w-3 h-3 bg-main-500 rounded-full'></span>Не найдено
+                      </span>
+                    </Typography>
+                  </td>
+
+                  <td className='text-end pie-0'>
+                    <Typography>{denied}</Typography>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </CardContent>
     </Card>

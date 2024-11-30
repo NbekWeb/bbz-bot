@@ -76,7 +76,7 @@ const DataCard = ({ data = {}, pagination }) => {
                     <td>
                       <Typography>
                         <span className='flex items-center gap-3'>
-                          <img src={item.image} className='w-9 h-9 ' />
+                          <img src={item.image ? item.image : '/images/net.jpg'} className='rounded-md w-9 h-9' />
                           <span>
                             <span className=''>{item?.group?.name}</span>
                             <span className='flex items-center justify-between gap-5'>

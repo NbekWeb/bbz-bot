@@ -3,6 +3,8 @@ import { useState } from 'react'
 
 import Typography from '@mui/material/Typography'
 import MenuItem from '@mui/material/MenuItem'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
 
 import CustomTextField from '@core/components/mui/TextField'
 import tableStyles from '@core/styles/table.module.css'
@@ -10,21 +12,67 @@ import tableStyles from '@core/styles/table.module.css'
 import CustomAvatar from '@core/components/mui/Avatar'
 import Icon from '../icon/Icon'
 
-const DataCard = ({ item }) => {
+import Adress from './Adress'
+
+const DataCard = ({ article, onItemUpdate }) => {
   const [count, setCount] = useState(1)
-  const [date, setDate] = useState(new Date())
+  const [selectedIndex, setSelectedIndex] = useState(-1)
 
-  const handleDate = e => setDate(e)
+  const [open, setOpen] = useState(false)
 
-  const incrementCount = () => setCount(prevCount => Math.min(100, prevCount + 1))
-  const decrementCount = () => setCount(prevCount => Math.max(1, prevCount - 1))
+  const handleDialogClose = () => {
+    setOpen(false)
+  }
+
+  const openMap = index => {
+    setOpen(true)
+
+    setSelectedIndex(index)
+  }
+
+  const handleItemChange = (key, value, index) => {
+    const updatedItems = [...article.items]
+
+    updatedItems[index][key] = value
+
+    onItemUpdate({ ...article, items: updatedItems })
+  }
+
+  const handleCountChange = (e, index) => {
+    const value = e.target.value
+
+    if (/^\d+$/.test(value) && parseInt(value) > 0) {
+      handleItemChange('count', parseInt(value), index)
+    }
+  }
+
+  const handleDelete = index => {
+    const updatedItems = article.items.filter((_, i) => i !== index)
+
+    onItemUpdate({ ...article, items: updatedItems })
+  }
+
+  const genders = ['случайный', 'муж', 'жен']
+
+  const handleLocationSelect = address => {
+    setOpen(false)
+    const updatedItems = [...article.items]
+
+    updatedItems[selectedIndex].delivery_place = address
+    onItemUpdate({ ...article, items: updatedItems })
+  }
 
   return (
-    <div className='mt-6'>
+    <div className='mt-6 '>
+      <Dialog aria-labelledby='simple-dialog-title' open={open} onClose={handleDialogClose}>
+        <div className='map-w'>
+          <Adress onSelectLocation={handleLocationSelect} onClose={handleDialogClose} />
+        </div>
+      </Dialog>
       <table className={tableStyles.table}>
         <thead>
           <tr>
-            <th className='text-left'>
+            <th className='text-center'>
               <Typography>
                 <span className='opacity-0'>n</span>
               </Typography>
@@ -39,10 +87,13 @@ const DataCard = ({ item }) => {
           </tr>
         </thead>
         <tbody>
-          {item?.items?.map((product, i) => (
+          {article?.items?.map((product, i) => (
             <tr key={i}>
               <td className='text-center'>
-                <span className='flex items-center justify-center w-5 border-r border-dashed text-main-500'>
+                <span
+                  className='flex items-center justify-center w-5 border-r border-dashed text-main-500'
+                  onClick={() => handleDelete(i)}
+                >
                   <Icon type='delete' width='15px' />
                 </span>
               </td>
@@ -50,14 +101,19 @@ const DataCard = ({ item }) => {
                 <div className='flex items-center gap-1 px-1 rounded-sm h-7 bg-grey-100 text-grey-800 max-w-max'>
                   <div
                     className='flex items-center justify-center w-5 h-5 bg-transparent rounded-sm hover:bg-grey-600 hover:text-main-500'
-                    onClick={decrementCount}
+                    onClick={() => handleItemChange('count', Math.max(1, product.count - 1), i)}
                   >
                     <Icon type='minus' width='12px' />
                   </div>
-                  <span className='flex justify-center text-sm font-semibold text-center min-w-8'>{count}</span>
+                  <input
+                    type='text'
+                    value={product.count}
+                    onChange={e => handleCountChange(e, i)}
+                    className='w-12 text-sm font-medium text-center bg-transparent border border-none rounded-sm outline-none text-main-500'
+                  />
                   <div
                     className='flex items-center justify-center w-5 h-5 bg-transparent rounded-sm hover:bg-grey-600 hover:text-main-500'
-                    onClick={incrementCount}
+                    onClick={() => handleItemChange('count', Math.min(100, product.count + 1), i)}
                   >
                     <Icon type='add' width='12px' />
                   </div>
@@ -66,13 +122,14 @@ const DataCard = ({ item }) => {
               <td className='text-center'>
                 <CustomTextField
                   select
-                  id='select-count'
-                  value={item.sizes?.[0]}
+                  id='select-size'
+                  value={product.size}
                   className='!min-w-24'
                   SelectProps={{ displayEmpty: true }}
+                  onChange={e => handleItemChange('size', e.target.value, i)}
                 >
-                  {item.sizes.map((size, i) => (
-                    <MenuItem value={i} key={i}>
+                  {article.sizes.map((size, j) => (
+                    <MenuItem value={size} key={j}>
                       {size}
                     </MenuItem>
                   ))}
@@ -81,21 +138,36 @@ const DataCard = ({ item }) => {
               <td>
                 <CustomTextField
                   select
-                  id='select-count'
-                  value={1}
-                  className='!min-w-24'
+                  id='select-gender'
+                  value={product.account_gender}
+                  className='!min-w-full'
                   SelectProps={{ displayEmpty: true }}
+                  onChange={e => handleItemChange('account_gender', e.target.value, i)}
                 >
-                  <MenuItem value={10}>10</MenuItem>
+                  {genders.map((gender, j) => (
+                    <MenuItem value={gender} key={j}>
+                      {gender}
+                    </MenuItem>
+                  ))}
                 </CustomTextField>
               </td>
               <td>
-                <span className='flex items-center justify-center w-5 border-r border-dashed text-main-500'>
-                  <Icon type='delete' width='15px' />
-                </span>
+                <CustomTextField
+                  id={`keyword-${i}`}
+                  placeholder='Поисковый Запрос'
+                  value={product.keyword || ''}
+                  className='!min-w-full'
+                  onChange={e => handleItemChange('keyword', e.target.value, i)}
+                />
               </td>
               <td>
-                <div>vibrat</div>
+                {product.delivery_place ? (
+                  <span>{product.delivery_place}</span>
+                ) : (
+                  <Button fullWidth variant='outlined' onClick={() => openMap(i)}>
+                    Выбрать
+                  </Button>
+                )}
               </td>
             </tr>
           ))}

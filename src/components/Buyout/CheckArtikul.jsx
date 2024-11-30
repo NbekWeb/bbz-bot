@@ -6,6 +6,10 @@ import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 import { useTheme } from '@mui/material/styles'
 
+import dayjs from 'dayjs'
+
+import { toast } from 'react-toastify'
+
 import { api } from '@/utils/api'
 
 import CustomAvatar from '@core/components/mui/Avatar'
@@ -43,6 +47,7 @@ const DataCard = ({ onAddArticles }) => {
           name: response.data.name,
           price: response.data.price,
           sizes: response.data.sizes,
+          date: dayjs(date).format('DD-MM-YYYY'),
           items: []
         }
 
@@ -51,11 +56,15 @@ const DataCard = ({ onAddArticles }) => {
         if (onAddArticles) {
           onAddArticles(articlesToAdd)
         }
+
+        toast.success('Артикул добавлен!')
+      } else {
+        toast.error('Артикул не найден!')
       }
 
       if (callback) callback()
     } catch (error) {
-      console.error('Error fetching receipt data:', error)
+      toast.error('Что-то пошло не так!')
     }
   }
 

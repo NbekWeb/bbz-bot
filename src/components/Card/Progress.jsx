@@ -7,6 +7,8 @@ import CardContent from '@mui/material/CardContent'
 import LinearProgress from '@mui/material/LinearProgress'
 import Typography from '@mui/material/Typography'
 
+import dayjs from 'dayjs'
+
 import classnames from 'classnames'
 
 import AppReactDatepicker from './AppReactDatepicker'
@@ -53,6 +55,7 @@ const Progress = ({ data = {}, title = 'Vehicle ', icon = 'bxs-truck', onDateCha
             <span>{title}</span>
           </div>
           <AppReactDatepicker
+          dateFormat='dd.MM.YYYY'
             selected={date}
             id='basic-input'
             onChange={handleDate}

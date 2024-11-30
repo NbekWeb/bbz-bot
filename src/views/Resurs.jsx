@@ -12,6 +12,7 @@ import Icon from '@/components/icon/Icon'
 import Proxy from '@/components/Resurs/Proxy'
 import Sms from '@/components/Resurs/Sms'
 import Capcha from '@/components/Resurs/Capcha'
+import Telegram from '@/components/Resurs/Telegram'
 
 import { api } from '@/utils/api'
 
@@ -68,6 +69,8 @@ const DataCard = () => {
         console.log('sa')
       } else if (params?.sms_api_key) {
         toast.success(' SMS API добавлен!')
+      } else {
+        toast.success(' Телеграм ресурс добавлен!')
       }
     } catch (error) {
       toast.error('Что-то пошло не так!')
@@ -104,6 +107,12 @@ const DataCard = () => {
     }
   }
 
+  const handleAddTelegram = tg => {
+    if (tg) {
+      updateSms(tg)
+    }
+  }
+
   const handlePage = pagination => {
     fetchVehicleData({ ...pagination })
   }
@@ -130,7 +139,7 @@ const DataCard = () => {
               }`}
               onClick={() => handleSelect(0)}
             >
-              <Icon type='proxy' width='24'/>
+              <Icon type='proxy' width='24' />
               <span>Прокси</span>
             </div>
             <div
@@ -139,7 +148,7 @@ const DataCard = () => {
               }`}
               onClick={() => handleSelect(1)}
             >
-              <Icon type='sms' width='24'/>
+              <Icon type='sms' width='24' />
               <span>Смс</span>
             </div>
             <div
@@ -148,7 +157,7 @@ const DataCard = () => {
               }`}
               onClick={() => handleSelect(2)}
             >
-              <Icon type='capcha' width='24'/>
+              <Icon type='capcha' width='24' />
               <span>Капча</span>
             </div>
             <div
@@ -157,7 +166,7 @@ const DataCard = () => {
               }`}
               onClick={() => handleSelect(3)}
             >
-              <Icon type='tg' width='24'/> 
+              <Icon type='tg' width='24' />
               <span>Телеграм</span>
             </div>
           </div>
@@ -166,6 +175,7 @@ const DataCard = () => {
       {selectedIndex === 0 && <Proxy data={proxyData} onAdd={handleAddProxy} pagination={handlePage} />}
       {selectedIndex === 1 && <Sms onAdd={handleAddSms} />}
       {selectedIndex === 2 && <Capcha onAdd={handleAddCapcha} />}
+      {selectedIndex === 3 && <Telegram onAdd={handleAddTelegram} />}
     </div>
   )
 }

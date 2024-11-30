@@ -110,10 +110,11 @@ const LoginV2 = ({ mode }) => {
         open: true
       })
 
-      const { access } = response.data
+      const { access, refresh } = response.data
 
       localStorage.setItem('access_token', access)
-      router.push('/') // Redirect after successful login
+      localStorage.setItem('refresh_token', refresh)
+      router.push('/')
     } catch (error) {
       toast.error('Логин или пароль неверны!')
     }

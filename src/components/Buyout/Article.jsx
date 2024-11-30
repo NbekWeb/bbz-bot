@@ -1,10 +1,13 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import MenuItem from '@mui/material/MenuItem'
+
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 import CustomTextField from '@core/components/mui/TextField'
 import tableStyles from '@core/styles/table.module.css'
@@ -15,13 +18,14 @@ import Icon from '../icon/Icon'
 import CustomAvatar from '@core/components/mui/Avatar'
 
 import ArticleTable from './ArticleTable'
+import ArticleCard from './ArticleCard'
 
-const DataCard = ({ item = {},onSaveCount }) => {
+const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) => {
   const [date, setDate] = useState(new Date())
   const [full, setFull] = useState(false)
   const [count, setCount] = useState(1)
 
-  const handleDate = e => setDate(e)
+  dayjs.extend(customParseFormat)
 
   const incrementCount = () => setCount(prevCount => Math.min(100, prevCount + 1))
   const decrementCount = () => setCount(prevCount => Math.max(1, prevCount - 1))
@@ -32,6 +36,40 @@ const DataCard = ({ item = {},onSaveCount }) => {
     }
   }
 
+  const handleItemUpdate = updatedItems => {
+    if (onItemUpdate) {
+      const updatedArticle = { ...article, items: updatedItems?.items }
+
+      onItemUpdate(updatedArticle)
+    }
+  }
+
+  const handleDate = e => {
+    setDate(e)
+
+    if (onItemUpdate) {
+      const updatedArticle = {
+        ...article,
+        date: dayjs(e).format('DD-MM-YYYY')
+      }
+
+      onItemUpdate(updatedArticle)
+    }
+  }
+
+  const handleDeleteArticle = () => {
+    if (onDeleteArticle) {
+      onDeleteArticle()
+    }
+  }
+
+  useEffect(() => {
+    if (article.date) {
+      const parsedDate = dayjs(article.date, 'DD-MM-YYYY').toDate()
+
+      setDate(parsedDate)
+    }
+  }, [article.date])
 
   return (
     <Card>
@@ -39,16 +77,18 @@ const DataCard = ({ item = {},onSaveCount }) => {
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-3 h-11'>
             <div className='flex flex-col items-center justify-center h-full'>
-              <CustomAvatar skin='light' variant='rounded' size={20} className='text-main-500'>
-                <Icon type='delete' width='16px' />
+              <CustomAvatar skin='light' variant='rounded' size={20} onClick={handleDeleteArticle}>
+                <span className='pt-1 text-main-500'>
+                  <Icon type='delete' width='16' />
+                </span>
               </CustomAvatar>
             </div>
             <img src='/images/net.jpg' className='h-10 rounded-sm' />
             <div className='flex flex-col justify-between h-full'>
-              <span className='text-sm'>{item?.name}</span>
+              <span className='text-sm'>{article?.name}</span>
               <div className='flex items-center gap-5'>
-                <span className='text-xs text-main-500'>{item?.article}</span>
-                <span className='px-2 py-0.5 text-xs rounded-sm bg-grey-100 text-grey-800'>{item?.price} ₽</span>
+                <span className='text-xs text-main-500'>{article?.article}</span>
+                <span className='px-2 py-0.5 text-xs rounded-sm bg-grey-100 text-grey-800'>{article?.price} ₽</span>
               </div>
             </div>
             <AppReactDatepicker
@@ -86,7 +126,8 @@ const DataCard = ({ item = {},onSaveCount }) => {
             <Icon type='chevron' width='22px' />
           </div>
         </div>
-        {full && <ArticleTable item={item} />}
+        {full && <ArticleTable article={article} onItemUpdate={handleItemUpdate} />}
+        <ArticleCard full={full} article={article} />
       </CardContent>
     </Card>
   )

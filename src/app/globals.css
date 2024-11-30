@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'leaflet/dist/leaflet.css';
+
 :root {
   --border-radius: var(--mui-shape-borderRadius);
   --border-color: var(--mui-palette-divider);
@@ -58,6 +60,7 @@ ul:not([class]) {
 [data-floating-ui-safe-polygon] .scrollbar-container {
   pointer-events: auto;
 }
+
 [data-floating-ui-safe-polygon] .scrollbar-container .ps__rail-y {
   pointer-events: none;
 }
@@ -65,22 +68,26 @@ ul:not([class]) {
 .ps__rail-y {
   inset-inline-end: 0 !important;
   inset-inline-start: auto !important;
+
   & .ps__thumb-y {
     inset-inline-end: 3px !important;
     inset-inline-start: auto !important;
     background-color: var(--mui-palette-divider);
     inline-size: 6px;
+
     &:hover,
     &:focus,
     &.ps--clicking {
       background-color: var(--mui-palette-action-disabled) !important;
     }
   }
+
   &:hover,
   &:focus,
   &.ps--clicking {
     background-color: var(--mui-palette-action-hover) !important;
   }
+
   &:hover,
   &:focus,
   &.ps--clicking {
@@ -93,18 +100,22 @@ ul:not([class]) {
 .ts-vertical-nav-root {
   .ps__thumb-y {
     inline-size: 4px;
+
     &:hover,
     &:focus,
     &.ps--clicking {
       inline-size: 6px;
     }
   }
+
   .ps__rail-y {
     inline-size: 10px;
+
     &:hover,
     &:focus,
     &.ps--clicking {
       background-color: transparent !important;
+
       .ps__thumb-y {
         inline-size: 6px;
       }
@@ -133,13 +144,78 @@ code {
 }
 
 .adding .mui-lg4s9l-MuiFormControl-root-MuiTextField-root .MuiInputBase-root.MuiInputBase-sizeSmall {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  border-start-end-radius: 0 !important;
+  border-end-end-radius: 0 !important;
 
-  height: 36px !important;
+  block-size: 36px !important;
 }
 
 .shadow-c:hover {
   box-shadow: 0px 2px 6px rgb(115 103 240 / 0.3);
   border: 2px solid #7367f0 !important;
 }
+
+.limit1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+  display: none !important;
+}
+
+.leaflet-marker-icon {
+  border-radius: 50% !important;
+}
+
+.map-w {
+  min-inline-size: calc(100vw - 80px);
+  min-block-size: calc(100vh - 160px);
+}
+
+.mui-avpbka-MuiPaper-root-MuiDialog-paper {
+  max-inline-size: 100vw !important;
+}
+
+.leaflet-container {
+  block-size: calc(100vh - 160px) !important;
+}
+
+.poisk .mui-1gvsucl-MuiCardContent-root:last-child,
+.poisk .mui-1gvsucl-MuiCardContent-root:last-child,
+.poisk .mui-1gvsucl-MuiCardContent-root {
+  padding-block-end: 0 !important;
+  padding: 0 !important;
+}
+
+.h-adress {
+  block-size: calc(100vh - 160px);
+}
+
+/* Custom scrollbar styles for .custom-scroll class */
+.custom-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Scrollbar track */
+.custom-scroll::-webkit-scrollbar-track {
+  width: 10px;
+  background: #C7C2F9; /* White color */
+}
+
+/* Scrollbar thumb */
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #675DD8; /* Example info color */
+  border-radius: 4px;
+}
+
+/* Scrollbar thumb on hover */
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #675DD8; /* Example primary color */
+}
+

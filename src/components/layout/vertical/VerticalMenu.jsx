@@ -57,13 +57,13 @@ const VerticalMenu = ({ scrollMenu }) => {
         renderExpandedMenuItemIcon={{ icon: <i className='text-xs tabler-circle' /> }}
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
-        <MenuItem href='/home' icon={<i className='tabler-smart-home' />}>
+        <MenuItem href='/dashboards' icon={<i className='tabler-smart-home' />}>
           Панель
         </MenuItem>
-        <MenuItem href='/resurs' icon={<i className='tabler-layout-board-split' />}>
+        <MenuItem href='/resource' icon={<i className='tabler-layout-board-split' />}>
           Ресурсы
         </MenuItem>
-        <MenuItem href='/accaunts' icon={<i className='tabler-user' />}>
+        <MenuItem href='/accounts' icon={<i className='tabler-user' />}>
           Аккаунты
         </MenuItem>
         <MenuItem href='/buyout' icon={<icon className='tabler-chart-bar' />}>

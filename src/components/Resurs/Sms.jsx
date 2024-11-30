@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 
 import CustomTextField from '@core/components/mui/TextField'
-import CustomAvatar from '@core/components/mui/Avatar'
+
 import Icon from '../icon/Icon'
 
 const Sms = ({ onAdd }) => {
