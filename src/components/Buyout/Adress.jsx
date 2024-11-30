@@ -239,10 +239,8 @@ const Map = ({ onSelectLocation, onClose }) => {
                 </div>
                 {selectedLocation && (
                   <>
-                    <p className='mb-2 text-base'>Ежедневно: {selectedLocation.work_time}</p>
+                    <p className='mb-2 text-base'> {selectedLocation.work_time}</p>
                     <p className='text-base'>{selectedLocation.address}</p>
-                    <p className='text-base'>{selectedLocation.latitude}</p>
-                    <p className='text-base'>{selectedLocation.longitude}</p>
                   </>
                 )}
                 <div className='grid grid-cols-2 gap-4 mt-6'>
