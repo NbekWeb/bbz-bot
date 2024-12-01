@@ -157,10 +157,11 @@ code {
 
 .limit1 {
   overflow: hidden;
-  display: -webkit-box;
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .leaflet-touch .leaflet-control-attribution,
@@ -205,17 +206,16 @@ code {
 /* Scrollbar track */
 .custom-scroll::-webkit-scrollbar-track {
   width: 10px;
-  background: #C7C2F9; /* White color */
+  background: #c7c2f9; /* White color */
 }
 
 /* Scrollbar thumb */
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: #675DD8; /* Example info color */
+  background: #675dd8; /* Example info color */
   border-radius: 4px;
 }
 
 /* Scrollbar thumb on hover */
 .custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: #675DD8; /* Example primary color */
+  background: #675dd8; /* Example primary color */
 }
-

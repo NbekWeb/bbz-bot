@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+
 import { MapContainer, TileLayer, Marker, Circle, useMap, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
 
@@ -103,7 +104,7 @@ const SearchHandler = ({ searchResults, setSearchResults, setCenter }) => {
   if (!searchResults || searchResults.length === 0) return null
 
   return (
-    <div className='search-results mb-2 ml-4 flex flex-col gap-1'>
+    <div className='flex flex-col gap-1 mb-2 ml-4 search-results'>
       {searchResults.map((result, index) => (
         <div
           key={index}
@@ -126,6 +127,8 @@ const Map = ({ onSelectLocation, onClose }) => {
   const [searchResults, setSearchResults] = useState([])
   const [center, setCenter] = useState([55.751244, 37.618423])
   const [selectedLocation, setSelectedLocation] = useState(null)
+
+  const mapRef = useRef(null)
 
   const fetchBoundsData = async bounds => {
     try {
@@ -173,9 +176,18 @@ const Map = ({ onSelectLocation, onClose }) => {
     setOpen(true)
   }
 
+  useEffect(() => {
+    if (mapRef.current) {
+      const map = mapRef.current
+      const bounds = map.getBounds()
+
+      fetchBoundsData(bounds)
+    }
+  }, [])
+
   return (
     <div className='flex h-adress !overflow-x-hidden '>
-      <div className='w-72 max-h-full overflow-y-hidden min-w-72 flex'>
+      <div className='flex max-h-full overflow-y-hidden w-72 min-w-72'>
         <div className='w-full flex flex-col gap-2 p-2.5 max-h-[calc(100vh-170px)] overflow-y-auto custom-scroll'>
           {locations.map((loc, i) => (
             <div
@@ -190,8 +202,18 @@ const Map = ({ onSelectLocation, onClose }) => {
           ))}
         </div>
       </div>
-      <div className='flex-grow h-full relative'>
-        <MapContainer center={center} zoom={10} style={{ height: '500px', width: '100%' }}>
+      <div className='relative flex-grow h-full'>
+        <MapContainer
+          center={center}
+          zoom={10}
+          style={{ height: '500px', width: '100%' }}
+          whenReady={({ target }) => {
+            mapRef.current = target;
+            const bounds = target.getBounds();
+
+            fetchBoundsData(bounds);
+          }}
+        >
           <TileLayer
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             attribution='&copy; OpenStreetMap contributors'
@@ -208,7 +230,7 @@ const Map = ({ onSelectLocation, onClose }) => {
                   type='search'
                   value={searchQuery}
                   onChange={handleSearch}
-                  placeholder='Search for a city or location'
+                  placeholder='Поиск'
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position='start'>
@@ -266,7 +288,7 @@ const Map = ({ onSelectLocation, onClose }) => {
         <div className='absolute top-4 right-4 z-[999] hover:cursor-pointer  poisk w-6 h-6' onClick={() => onClose()}>
           <Card>
             <CardContent>
-              <span className='text-main-500 flex items-center justify-center pt-1'>
+              <span className='flex items-center justify-center pt-1 text-main-500'>
                 <Icon type='close' width={16} />
               </span>
             </CardContent>

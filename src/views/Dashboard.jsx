@@ -173,9 +173,15 @@ const Dashboard = () => {
         <ProgressCard data={recieptData} title='Получение' icon='truck' onDateChange={handleReviewdate3} />
       </div>
       <div className='grid w-full grid-cols-3 gap-6 mt-6 '>
+        <div className="flex flex-col gap-4">
+
         <BudjetCard data={budgetData} />
         <OrderCard data={orderData} />
+        </div>
+        <div className='col-span-2 '>
+
         <CommentCard seriesData={reviews} period={periodComment} onStatusChange={handleStatusChange} />
+        </div>
       </div>
     </div>
   )

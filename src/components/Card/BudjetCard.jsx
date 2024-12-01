@@ -23,6 +23,7 @@ const DataCard = ({ data = {} }) => {
             <span className='text-lg'>Бюджет</span>
             <span className='text-xs'>Выкупов</span>
             <AppReactDatepicker
+            dateFormat='dd.MM.YYYY'
               selected={date}
               id='basic-input'
               className='w-[105px]'
