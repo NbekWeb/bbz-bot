@@ -122,12 +122,12 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
     handleSearch(value) // Trigger the debounced function
   }
 
-  const fetchBuyoutData = async (article = '', page = 1,count=1) => {
+  const fetchBuyoutData = async (article = '', page = 1,page_size=5) => {
     try {
       const response = await api({
         url: '/review/free_review/',
         method: 'GET',
-        params: { article, page,count }
+        params: { article, page,page_size }
       })
 
       // console.log(response.data.results,'s')
