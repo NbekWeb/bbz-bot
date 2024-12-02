@@ -143,7 +143,9 @@ const DataCard = () => {
               <CardContent>
                 <div className='grid grid-cols-4 gap-6 mb-10'>
                   {adds.articles.map((item, i) => (
-                    <ArticleCard full={true} article={item} key={i} type='row' />
+                    <div key={i} className=''>
+                      <ArticleCard full={true} article={item} type='row' className='' />
+                    </div>
                   ))}
                 </div>
 
