@@ -31,7 +31,7 @@ const DataCard = ({ full, article = {}, type = 'line' }) => {
       <div className={`flex items-center gap-3 mb-6 h-11 ${!full && 'hidden'}`}>
         <img src='/images/net.jpg' className='h-10 rounded-sm' />
         <div className={`flex flex-col justify-between h-full ${type == 'line' && 'max-w-48'}}`}>
-          <span className='text-sm limit1'>{article?.name}</span>
+          <span className='text-sm limit1 max-w-30'>{article?.name}</span>
           <div className='flex items-center justify-between w-full gap-5'>
             <span className='text-xs text-main-500'> {article?.article} </span>
             <span className='px-2 py-0.5 text-xs rounded-sm bg-grey-100 text-grey-800'>{article?.price}₽</span>

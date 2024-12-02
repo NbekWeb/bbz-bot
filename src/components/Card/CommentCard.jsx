@@ -29,51 +29,44 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
   const textSecondary = 'var(--mui-palette-text-secondary)'
   const successColor = 'var(--mui-palette-success-main)'
 
+
+
   const options = {
+    stroke: { width: 0 },
+    labels: ['Проверено', 'Не найдено'],
     colors: [
       successColor,
       '#7367F0',
       'rgba(var(--mui-palette-success-mainChannel) / 0.5)',
       'var(--mui-palette-success-lightOpacity)'
     ],
-    stroke: { width: 0 },
-    legend: { show: false },
-    tooltip: { enabled: true, theme: 'false' },
-    dataLabels: { enabled: false },
-    labels: ['Проверено', 'Не найдено', 'Decor', 'Fashion'],
-    states: {
-      hover: { filter: { type: 'none' } },
-      active: { filter: { type: 'none' } }
+    dataLabels: {
+      enabled: true,
+      formatter: val => `${Math.round(val)}%`,
+      fontSize: '1rem',
     },
-    grid: { padding: { top: -22, bottom: -18 } },
+    legend: {
+      show: false
+    },
     plotOptions: {
       pie: {
-        customScale: 0.8,
-        expandOnClick: false,
         donut: {
-          size: '73%',
           labels: {
             show: true,
             name: {
-              offsetY: 25,
-              color: textSecondary,
-              fontFamily: theme.typography.fontFamily
+              fontSize: '1rem'
             },
             value: {
-              offsetY: -15,
-              fontWeight: 500,
-              formatter: val => `${val}`,
-              color: 'var(--mui-palette-text-primary)',
-              fontFamily: theme.typography.fontFamily,
-              fontSize: theme.typography.h3.fontSize
+              fontSize: '1rem',
+              color: textSecondary,
+              formatter: val => `${parseInt(val, 10)}`
             },
             total: {
               show: true,
-              showAlways: true,
+              fontSize: '1rem',
               label: 'Общий',
-              color: '#999CA6',
-              fontFamily: theme.typography.fontFamily,
-              fontSize: theme.typography.body1.fontSize
+
+              color: 'var(--mui-palette-text-primary)'
             }
           }
         }
@@ -81,12 +74,41 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
     },
     responsive: [
       {
-        breakpoint: theme.breakpoints.values.xl,
-        options: { chart: { width: 200, height: 237 } }
+        breakpoint: 992,
+        options: {
+          chart: {
+            height: 184
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
       },
       {
-        breakpoint: theme.breakpoints.values.md,
-        options: { chart: { width: 150, height: 199 } }
+        breakpoint: 576,
+        options: {
+          chart: {
+            height: 184
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                labels: {
+                  show: true,
+                  name: {
+                    fontSize: '1rem'
+                  },
+                  value: {
+                    fontSize: '1rem'
+                  },
+                  total: {
+                    fontSize: '1rem'
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     ]
   }
@@ -122,12 +144,12 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
     handleSearch(value) // Trigger the debounced function
   }
 
-  const fetchBuyoutData = async (article = '', page = 1,page_size=5) => {
+  const fetchBuyoutData = async (article = '', page = 1, page_size = 5) => {
     try {
       const response = await api({
         url: '/review/free_review/',
         method: 'GET',
-        params: { article, page,page_size }
+        params: { article, page, page_size }
       })
 
       // console.log(response.data.results,'s')
@@ -232,22 +254,21 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
               <div className='flex items-center justify-between gap-10'>
                 <span>Прохождение отзывов</span>
                 <div className='flex justify-end max-w-44 min-w-44'>
-
-                <CustomTextField
-                  select
-                  id='select-status'
-                  value={status}
-                  onChange={handleStatusChange}
-                  className=''
-                  SelectProps={{ displayEmpty: true }}
-                >
-                  <MenuItem value='today'>Сегодня</MenuItem>
-                  <MenuItem value='yesterday'>Вчера</MenuItem>
-                  <MenuItem value='week'>7 дней</MenuItem>
-                  <MenuItem value='30_days'>30 дней</MenuItem>
-                  <MenuItem value='month'>Этот месяц</MenuItem>
-                  <MenuItem value='last_month'>Прошлый месяц</MenuItem>
-                </CustomTextField>
+                  <CustomTextField
+                    select
+                    id='select-status'
+                    value={status}
+                    onChange={handleStatusChange}
+                    className=''
+                    SelectProps={{ displayEmpty: true }}
+                  >
+                    <MenuItem value='today'>Сегодня</MenuItem>
+                    <MenuItem value='yesterday'>Вчера</MenuItem>
+                    <MenuItem value='week'>7 дней</MenuItem>
+                    <MenuItem value='30_days'>30 дней</MenuItem>
+                    <MenuItem value='month'>Этот месяц</MenuItem>
+                    <MenuItem value='last_month'>Прошлый месяц</MenuItem>
+                  </CustomTextField>
                 </div>
               </div>
               {total === 0 ? (
@@ -255,12 +276,13 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
                   Ничего в этот период
                 </div>
               ) : (
+
                 <AppReactApexCharts
                   type='donut'
-                  width={150}
-                  height={177}
-                  series={[success, denied]}
+                  width='100%'
+                  height={220}
                   options={options}
+                  series={[success, denied]}
                 />
               )}
               <div className='mt-6 overflow-x-auto'>

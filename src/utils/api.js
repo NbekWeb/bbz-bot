@@ -9,7 +9,6 @@ const instance = axios.create({
 let isRefreshing = false
 let failedQueue = []
 
-// Process the queue of requests after refresh
 const processQueue = (error, token = null) => {
   failedQueue.forEach(prom => {
     if (token) {
@@ -40,12 +39,12 @@ export const api = ({ url, open = false, ...props }) => {
   })
 }
 
-// Refresh token and retry original requests
 async function refreshTokenAndRetry(originalRequest) {
   try {
     const refresh_token = localStorage.getItem('refresh_token')
 
     if (!refresh_token) {
+      Clear()
       throw new Error('No refresh token available')
     }
 
@@ -61,6 +60,7 @@ async function refreshTokenAndRetry(originalRequest) {
 
       return instance(originalRequest)
     } else {
+      Clear()
       throw new Error('Invalid refresh token response')
     }
   } catch (refreshError) {
@@ -80,6 +80,10 @@ function createAxiosResponseInterceptor() {
       const originalRequest = error.config
 
       // Handle 401 errors
+      if (originalRequest.url.includes('/token/refresh/') && error.response?.status === 401) {
+        Clear()
+      }
+
       if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true
 
@@ -100,6 +104,8 @@ function createAxiosResponseInterceptor() {
         try {
           return await refreshTokenAndRetry(originalRequest)
         } catch (refreshError) {
+          Clear()
+
           return Promise.reject(refreshError)
         }
       }

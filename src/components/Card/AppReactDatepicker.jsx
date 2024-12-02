@@ -7,12 +7,18 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 
 // Third-party Imports
-import ReactDatePickerComponent from 'react-datepicker'
+import ReactDatePickerComponent,{ registerLocale } from 'react-datepicker'
+
+import { ru } from 'date-fns/locale';
+
+
 
 // Styles
 import 'react-datepicker/dist/react-datepicker.css'
 
 import './styles.module.css'
+
+registerLocale('ru', ru);
 
 // Styled Components
 const StyledReactDatePicker = styled(Box)(({ theme }) => {
@@ -38,7 +44,7 @@ const StyledReactDatePicker = styled(Box)(({ theme }) => {
         padding: 0,
         border: 'none',
         fontWeight: 'normal',
-      
+
         backgroundColor: 'var(--mui-palette-background-paper)',
         '& .react-datepicker__current-month, &.react-datepicker-year-header': {
           textAlign: 'left'
@@ -493,7 +499,7 @@ const AppReactDatepicker = props => {
 
   return (
     <StyledReactDatePicker {...boxProps} >
-      <ReactDatePickerComponent popperPlacement='bottom-start' {...rest}  />
+      <ReactDatePickerComponent popperPlacement='bottom-start' locale="ru" {...rest}  />
     </StyledReactDatePicker>
   )
 }

@@ -8,7 +8,7 @@ import Icon from '../icon/Icon'
 
 const DataCard = ({ data = {} }) => {
   return (
-    <Card>
+    <Card className='!h-full'>
       <CardContent>
         <div className='flex items-center gap-6'>
           <div className='flex flex-col items-center px-1.5 gap-1'>
