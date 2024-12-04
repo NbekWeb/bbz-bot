@@ -11,25 +11,24 @@ const DataCard = ({ buyout = {} }) => {
   return (
     <Card>
       <CardContent>
-
         <div className='grid w-full grid-cols-5 gap-4 pb-6 capitalize border-b'>
-          <div className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md`}>
+          <div
+            className={`flex hover:cursor-pointer shadow bg-main-500 items-center justify-center text-white resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}
+          >
             <span>Все</span>
           </div>
-          <div
-            className={`flex hover:cursor-pointer bg-main-500 shadow items-center justify-center resurs-btn py-2 rounded-md text-white `}
-          >
+          <div className={`flex hover:cursor-pointer   items-center justify-center resurs-btn py-2 rounded-md  hover:shadow hover:text-main-500  hover:bg-main-100`}>
             <span>Активные</span>
           </div>
           <div
-            className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md shadow text-main-500 bg-main-100`}
+            className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}
           >
             <span>Успешные</span>
           </div>
-          <div className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md `}>
+          <div className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}>
             <span>С ошибками</span>
           </div>
-          <div className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md `}>
+          <div className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}>
             <span>к оплате</span>
           </div>
         </div>

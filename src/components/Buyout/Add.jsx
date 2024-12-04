@@ -114,6 +114,8 @@ const DataCard = () => {
     })
   }
 
+
+
   return (
     <div>
       <div className='flex items-center gap-2 mb-8'>
@@ -125,7 +127,7 @@ const DataCard = () => {
       </div>
 
       <div className='flex flex-col gap-6'>
-        <CheckArtikul onAddArticles={handleAddArticles} />
+        <CheckArtikul onAddArticles={handleAddArticles} data={adds} />
 
         {adds.articles.map((item, i) => (
           <Article
@@ -178,6 +180,7 @@ const DataCard = () => {
                   variant='contained'
                   onClick={() => {
                     saveArticles({ ...adds })
+                    console.log(adds)
                   }}
                 >
                   Добавить

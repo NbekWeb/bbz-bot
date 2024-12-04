@@ -88,14 +88,29 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
     }
   }
 
+  const checkProxy = async id => {
+    try {
+      const response = await api({
+        url: `/proxy/check/`,
+        method: 'GET'
+      })
+
+      console.log(response)
+
+      toast.success('Proxy удалён!')
+    } catch (error) {
+      toast.error('Что-то пошло не так!')
+    }
+  }
+
   return (
     <div>
       <Dialog aria-labelledby='simple-dialog-title' open={open} onClose={handleDialogClose}>
         <div className='p-6 min-w-[500px]'>
-          <div className='flex justify-between items-center mb-6'>
+          <div className='flex items-center justify-between mb-6'>
             <h4 className=''>Редактировать прокси</h4>
 
-            <span className='text-main-500'>
+            <span className='text-main-500 hover:cursor-pointer' onClick={handleDialogClose}>
               <Icon type='close' width='24px' />
             </span>
           </div>
@@ -107,7 +122,7 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
             value={selectedEmail}
             onChange={e => setSelectedEmail(e.target.value)}
           />
-          <div className='flex justify-end items-center mt-4 gap-4'>
+          <div className='flex items-center justify-end gap-4 mt-4'>
             <Button variant='outlined' color='error' onClick={handleDialogClose}>
               Отменить
             </Button>
@@ -182,7 +197,7 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
                           <span className='hover:text-main-500' onClick={() => handleClickOpen(i)}>
                             <Icon type='edit' width={20} />
                           </span>
-                          <span className='hover:text-main-500'>
+                          <span className='hover:text-main-500' onClick={() => checkProxy()}>
                             <Icon type='speed' width={20} />
                           </span>
                           <span className='hover:text-red-500' onClick={() => deleteProxy(item.id)}>

@@ -65,7 +65,7 @@ const Progress = ({ data = {}, title = 'Vehicle ', icon = 'bxs-truck', onDateCha
         </div>
         <div className='flex flex-col gap-6'>
           {total == 0 ? (
-            <div className='flex justify-center items-center'>Ничего в этот период</div>
+            <div className='flex items-center justify-center'>Ничего за период</div>
           ) : (
             <div className='flex w-full'>
               <div

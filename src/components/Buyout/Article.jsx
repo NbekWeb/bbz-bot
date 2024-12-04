@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
 
+import Link from 'next/link'
+
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
@@ -83,11 +85,13 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
                 </span>
               </CustomAvatar>
             </div>
-            <img src='/images/net.jpg' className='h-10 rounded-sm' />
+            <img src={article?.image || '/images/net.jpg'} className='h-10 rounded-sm' />
             <div className='flex flex-col justify-between h-full'>
               <span className='text-sm'>{article?.name}</span>
               <div className='flex items-center gap-5'>
-                <span className='text-xs text-main-500'>{article?.article}</span>
+                <Link href={`https://www.wildberries.ru/catalog/${article?.article}/detail.aspx`}>
+                  <span className='text-xs text-main-500'>{article?.article} </span>
+                </Link>
                 <span className='px-2 py-0.5 text-xs rounded-sm bg-grey-100 text-grey-800'>{article?.price} ₽</span>
               </div>
             </div>

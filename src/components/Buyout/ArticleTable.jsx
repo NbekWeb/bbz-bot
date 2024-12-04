@@ -128,7 +128,7 @@ const DataCard = ({ article, onItemUpdate }) => {
                   SelectProps={{ displayEmpty: true }}
                   onChange={e => handleItemChange('size', e.target.value, i)}
                 >
-                  {article.sizes.map((size, j) => (
+                  {article?.sizes?.map((size, j) => (
                     <MenuItem value={size} key={j}>
                       {size}
                     </MenuItem>

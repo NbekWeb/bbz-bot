@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -9,16 +9,16 @@ import CustomTextField from '@core/components/mui/TextField'
 import CustomAvatar from '@core/components/mui/Avatar'
 import Icon from '../icon/Icon'
 
-const DataCard = ({ onAdd }) => {
+const DataCard = ({ onAdd, data }) => {
   const [formData, setFormData] = useState({
-    telegram_bot_api: '',
-    telegram_id: '',
-    telegram_channel_id: '',
-    telegram_channel_receive_id: '',
-    telegram_channel_review_id: '',
-    telegram_channel_buyout_id: '',
-    telegram_channel_info_id: '',
-    telegram_channel_monitor_id: ''
+    telegram_bot_api: data?.telegram_bot_api || '',
+    telegram_id: data?.telegram_id || '',
+    telegram_channel_id: data?.telegram_channel_id || '',
+    telegram_channel_receive_id: data?.telegram_channel_receive_id || '',
+    telegram_channel_review_id: data?.telegram_channel_review_id || '',
+    telegram_channel_buyout_id: data?.telegram_channel_buyout_id || '',
+    telegram_channel_info_id: data?.telegram_channel_info_id || '',
+    telegram_channel_monitor_id: data?.telegram_channel_monitor_id || ''
   })
 
   const fields = [
@@ -53,17 +53,16 @@ const DataCard = ({ onAdd }) => {
     }, {})
 
     if (onAdd) onAdd(nonEmptyData)
-    setFormData({
-      telegram_bot_api: '',
-      telegram_id: '',
-      telegram_channel_id: '',
-      telegram_channel_receive_id: '',
-      telegram_channel_review_id: '',
-      telegram_channel_buyout_id: '',
-      telegram_channel_info_id: '',
-      telegram_channel_monitor_id: ''
-    })
   }
+
+  useEffect(() => {
+    if (data) {
+      setFormData(prev => ({
+        ...prev,
+        ...data // Merge incoming data with existing defaults
+      }))
+    }
+  }, [data])
 
   return (
     <div>

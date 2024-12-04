@@ -64,7 +64,7 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
             total: {
               show: true,
               fontSize: '1rem',
-              label: 'Общий',
+              label: 'Всего',
 
               color: 'var(--mui-palette-text-primary)'
             }

@@ -18,7 +18,7 @@ import Icon from '../icon/Icon'
 
 import AppReactDatepicker from '../Card/AppReactDatepicker'
 
-const DataCard = ({ onAddArticles }) => {
+const DataCard = ({ onAddArticles, data }) => {
   const [artikul, setArtikul] = useState('')
   const [date, setDate] = useState(new Date())
   const [count, setCount] = useState(1)
@@ -37,8 +37,6 @@ const DataCard = ({ onAddArticles }) => {
         method: 'POST',
         data
       })
-
-      // console.log(response.data) "Выкуп добавлен"
 
       if (response.data.article) {
         const newArticle = {
@@ -65,6 +63,22 @@ const DataCard = ({ onAddArticles }) => {
       if (callback) callback()
     } catch (error) {
       toast.error('Что-то пошло не так!')
+    }
+  }
+
+  const checkAdding = () => {
+    const formattedDate = dayjs(date).format('DD-MM-YYYY')
+    const isDateDuplicate = data.articles.some(article => article.date === formattedDate)
+
+    if (isDateDuplicate) {
+      toast.warning('Эти данные уже существуют!')
+
+      return
+    } else {
+      checkArticle({ article: artikul }, () => {
+        setArtikul('')
+        setCount(1)
+      })
     }
   }
 
@@ -110,10 +124,7 @@ const DataCard = ({ onAddArticles }) => {
               fullWidth
               variant='contained'
               onClick={() => {
-                checkArticle({ article: artikul }, () => {
-                  setArtikul('')
-                  setCount(1)
-                })
+                checkAdding()
               }}
             >
               Добавить

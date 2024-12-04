@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -9,13 +9,17 @@ import CustomTextField from '@core/components/mui/TextField'
 
 import Icon from '../icon/Icon'
 
-const Sms = ({ onAdd }) => {
-  const [email, setEmail] = useState('')
+const Sms = ({ onAdd, data }) => {
+  const [email, setEmail] = useState(data?.sms_api_key || '')
 
   const handleAdd = () => {
     if (onAdd) onAdd(email)
-    setEmail('')
+   
   }
+
+  useEffect(() => {
+    setEmail(data?.sms_api_key || '')
+  }, [data?.sms_api_key])
 
   return (
     <div>
