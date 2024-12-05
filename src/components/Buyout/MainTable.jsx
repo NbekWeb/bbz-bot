@@ -82,8 +82,8 @@ const DataCard = ({ data = {}, pagination, loading = true }) => {
                       <Typography>
                         <span className='flex items-center gap-3'>
                           <img src={item.image ? item.image : '/images/net.jpg'} className='rounded-md w-9 h-9' />
-                          <span>
-                            <span className=''>{item?.group?.name}</span>
+                          <div className='max-w-44'>
+                            <p className=' limit1'>{item?.name}</p>
                             <span className='flex items-center justify-between gap-5'>
                               <span className='text-main-500'>{item?.article}</span>
                               <span
@@ -92,7 +92,7 @@ const DataCard = ({ data = {}, pagination, loading = true }) => {
                                 {item?.price} ₽
                               </span>
                             </span>
-                          </span>
+                          </div>
                         </span>
                       </Typography>
                     </td>
