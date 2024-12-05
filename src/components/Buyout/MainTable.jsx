@@ -7,12 +7,14 @@ import Typography from '@mui/material/Typography'
 import MenuItem from '@mui/material/MenuItem'
 import Pagination from '@mui/material/Pagination'
 
+import { Spin } from 'antd'
+
 import CustomTextField from '@core/components/mui/TextField'
 import tableStyles from '@core/styles/table.module.css'
 import CustomAvatar from '@core/components/mui/Avatar'
 import Icon from '../icon/Icon'
 
-const DataCard = ({ data = {}, pagination }) => {
+const DataCard = ({ data = {}, pagination, loading = true }) => {
   const [count, setCount] = useState(10)
   const [page, setPage] = useState(1)
 
@@ -56,7 +58,10 @@ const DataCard = ({ data = {}, pagination }) => {
               <MenuItem value={50}>50</MenuItem>
             </CustomTextField>
           </div>
-          <div>
+          <div className='relative min-h-44'>
+            <div className='absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
+              <Spin spinning={loading} />
+            </div>
             <table className={tableStyles.table}>
               <thead>
                 <tr>

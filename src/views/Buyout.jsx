@@ -2,6 +2,7 @@
 import { useState } from 'react'
 
 
+
 import Home from '@/components/Buyout/Main'
 
 const DataCard = () => {

@@ -15,6 +15,7 @@ import MainTable from './MainTable'
 const DataCard = () => {
   const [buyout, setBuyout] = useState(null)
   const [buyoutData, setBuyoutData] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const handlePage = pagination => {
     fetchBuyoutData({ ...pagination })
@@ -33,6 +34,7 @@ const DataCard = () => {
     } catch (error) {
       console.error('Error fetching receipt data:', error)
     } finally {
+      setLoading(false)
     }
   }
 
@@ -67,7 +69,7 @@ const DataCard = () => {
       <div className='flex flex-col gap-12'>
         <Top />
         <Statis buyout={buyoutData} />
-        <MainTable data={buyout} pagination={handlePage} />
+        <MainTable data={buyout} pagination={handlePage} loading={loading} />
       </div>
     </div>
   )

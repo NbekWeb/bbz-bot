@@ -29,8 +29,6 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
   const textSecondary = 'var(--mui-palette-text-secondary)'
   const successColor = 'var(--mui-palette-success-main)'
 
-
-
   const options = {
     stroke: { width: 0 },
     labels: ['Проверено', 'Не найдено'],
@@ -43,7 +41,7 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
     dataLabels: {
       enabled: true,
       formatter: val => `${Math.round(val)}%`,
-      fontSize: '1rem',
+      fontSize: '1rem'
     },
     legend: {
       show: false
@@ -250,7 +248,7 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
                 </div>
               </div>
             </div>
-            <div className='flex flex-col justify-between pl-2'>
+            <div className='flex flex-col justify-between pl-2 '>
               <div className='flex items-center justify-between gap-10'>
                 <span>Прохождение отзывов</span>
                 <div className='flex justify-end max-w-44 min-w-44'>
@@ -271,20 +269,11 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
                   </CustomTextField>
                 </div>
               </div>
-              {total === 0 ? (
-                <div className='flex items-center justify-center flex-grow h-full mt-4 text-center text-gray-500'>
-                  Ничего в этот период
-                </div>
-              ) : (
 
-                <AppReactApexCharts
-                  type='donut'
-                  width='100%'
-                  height={220}
-                  options={options}
-                  series={[success, denied]}
-                />
-              )}
+              <div className=''>
+                <AppReactApexCharts type='donut' height={220} options={options} series={[success, denied]} />
+              </div>
+
               <div className='mt-6 overflow-x-auto'>
                 <table className={tableStyles.table}>
                   <tbody>
