@@ -50,7 +50,7 @@ const DataCard = () => {
           price: prev.articles[index]?.price,
           count: 1,
           size: prev.articles[index]?.sizes?.[0],
-          account_gender: 'случайный',
+          account_gender: 'нет',
           keyword: '',
           delivery_place: ''
         }))
@@ -81,6 +81,15 @@ const DataCard = () => {
 
   const saveArticles = async data => {
     try {
+      const dates = data.articles.map(article => article.date)
+      const uniqueDates = new Set(dates)
+
+      if (uniqueDates.size !== dates.length) {
+        toast.error('В одной дате не может быть несколько статей!')
+
+        return
+      }
+
       const updatedData = {
         ...data,
         articles: data.articles.map(article => {
@@ -113,8 +122,6 @@ const DataCard = () => {
       return { ...prev, articles: updatedArticles }
     })
   }
-
-
 
   return (
     <div>

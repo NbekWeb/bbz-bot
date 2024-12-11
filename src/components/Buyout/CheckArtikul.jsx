@@ -102,11 +102,17 @@ const DataCard = ({ onAddArticles, data }) => {
                 theme.palette.mode === 'light' ? 'border-grey-400' : 'border-grey-700'
               }`}
             >
-              <span className='px-2 hover:cursor-pointer' onClick={decrementCount}>
+              <span
+                className='flex items-center w-6 h-6 p-1 px-2 rounded-md hover:cursor-pointer hover:bg-grey-600 hover:text-main-500'
+                onClick={decrementCount}
+              >
                 -
               </span>
               <span className='flex px-3 font-semibold min-w-12'>{count}</span>
-              <span className='flex px-2 hover:cursor-pointer' onClick={incrementCount}>
+              <span
+                className='flex items-center w-6 h-6 p-1 px-2 rounded-md hover:cursor-pointer hover:bg-grey-600 hover:text-main-500'
+                onClick={incrementCount}
+              >
                 +
               </span>
             </div>

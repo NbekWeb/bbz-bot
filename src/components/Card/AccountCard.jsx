@@ -65,7 +65,14 @@ const Progress = ({ data = {} }) => {
                     <Typography>{data?.active}</Typography>
                   </td>
                 </tr>
-
+                <tr className=''>
+                  <td></td>
+                  <td className='text-lg font-semibold text-end pie-0'>
+                    {
+                      +data?.active+ +data?.clear
+                    }
+                  </td>
+                </tr>
                 <tr>
                   <td className='flex items-center gap-2 pis-0'>
                     <Typography color='text.primary'>

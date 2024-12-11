@@ -80,18 +80,18 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
           <div className='flex items-center gap-3 h-11'>
             <div className='flex flex-col items-center justify-center h-full'>
               <CustomAvatar skin='light' variant='rounded' size={20} onClick={handleDeleteArticle}>
-                <span className='pt-1 text-main-500'>
-                  <Icon type='delete' width='16' />
+                <span className='pt-1 text-main-500 hover:cursor-pointer'>
+                  <Icon type='delete' width='14' />
                 </span>
               </CustomAvatar>
             </div>
             <img src={article?.image || '/images/net.jpg'} className='h-10 rounded-sm' />
             <div className='flex flex-col justify-between h-full'>
-              <span className='text-sm'>{article?.name}</span>
+              <span className='text-sm limit1 max-w-32'>{article?.name}</span>
               <div className='flex items-center gap-5'>
-                <Link href={`https://www.wildberries.ru/catalog/${article?.article}/detail.aspx`}>
-                  <span className='text-xs text-main-500'>{article?.article} </span>
-                </Link>
+                <a href={`https://www.wildberries.ru/catalog/${article?.article}/detail.aspx`} target="_blank" className='hover:underline hover:underline-offset-2 text-main-500'>
+                  <span className='text-xs '>{article?.article} </span>
+                </a>
                 <span className='px-2 py-0.5 text-xs rounded-sm bg-grey-100 text-grey-800'>{article?.price} ₽</span>
               </div>
             </div>
@@ -102,12 +102,11 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
               placeholderText='Click to select a date'
               customInput={<CustomTextField fullWidth />}
             />
-            <div className='flex items-center h-10 gap-1 px-1 rounded-sm bg-grey-100 text-grey-800'>
+            <div className='flex items-center gap-1 px-1 rounded-sm h-9 bg-grey-100 text-grey-800'>
               <div
                 className='flex items-center justify-center w-5 h-5 bg-transparent rounded-sm hover:bg-grey-600 hover:text-main-500'
                 onClick={decrementCount}
-              >
-                <Icon type='minus' width='12px' />
+              >-
               </div>
               <span className='flex justify-center text-sm font-semibold text-center min-w-8'>{count}</span>
               <div
@@ -116,7 +115,7 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
               >
                 <Icon type='add' width='12px' />
               </div>
-              <div className='flex items-center p-1 text-main-500' onClick={handleSave}>
+              <div className='flex items-center px-1 pt-1.5 text-main-500' onClick={handleSave}>
                 <Icon type='save' width='22px' />
               </div>
             </div>

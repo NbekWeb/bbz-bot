@@ -106,7 +106,9 @@ const DataCard = ({ data = {}, pagination, loading = true }) => {
                       <Typography>{item?.keyword}</Typography>
                     </td>
                     <td>
-                      <Typography>{item?.buyout?.account_gender}</Typography>
+                      <Typography>
+                        {item?.buyout?.account_gender == 'случай' ? '  нет' : item?.buyout?.account_gender}
+                      </Typography>
                     </td>
                     <td>
                       <Typography>{item?.buyout?.delivery_place}</Typography>

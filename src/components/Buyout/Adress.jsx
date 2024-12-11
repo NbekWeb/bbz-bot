@@ -25,10 +25,12 @@ const MapEvents = ({ onBoundsChange }) => {
   useMapEvents({
     moveend: event => {
       const bounds = event.target.getBounds()
+
       onBoundsChange(bounds)
     },
     zoomend: event => {
       const bounds = event.target.getBounds()
+
       onBoundsChange(bounds)
     }
   })
@@ -59,7 +61,11 @@ const MapWithGroups = ({ groups, locations, onLocationClick }) => {
 
       const markerIcon = L.divIcon({
         className: 'custom-icon',
-        html: `<div class="rounded-full bg-main-500 text-white p-2 flex justify-center items-center w-10 h-10">${group.count}</div>`,
+        html: `<div class="rounded-full  bg-main-700 text-white p-1.5 flex justify-center items-center w-10 h-10">
+<div class="bg-white rounded-full h-full w-full flex items-center justify-center text-main-500">
+${group.count}
+</div>
+        </div>`,
         iconSize: [40, 40],
         iconAnchor: [20, 40]
       })
@@ -71,6 +77,7 @@ const MapWithGroups = ({ groups, locations, onLocationClick }) => {
           [center.latitude, center.longitude],
           [left.latitude, left.longitude]
         ])
+
         map.fitBounds(bounds)
       })
     })
@@ -108,10 +115,10 @@ const SearchHandler = ({ searchResults, setSearchResults, setCenter }) => {
       {searchResults.map((result, index) => (
         <div
           key={index}
-          className='search-result hover:cursor-pointer'
-          onClick={() => handleSearchResultClick(result.boundingbox)}
+          className='font-medium search-result hover:cursor-pointer'
+          onClick={() => handleSearchResultClick(result.bbox)}
         >
-          <strong>{result.display_name.split(',')[0]}</strong>
+          {result.text.split(',')[0]}
         </div>
       ))}
     </div>
@@ -158,11 +165,11 @@ const Map = ({ onSelectLocation, onClose }) => {
     const query = event.target.value
     setSearchQuery(query)
 
-    if (query.length >= 3) {
+    if (query.length >= 1) {
       try {
-        const response = await fetch(`https://nominatim.openstreetmap.org/search?city=${query}&format=json&limit=20`)
+        const response = await fetch(`https://api.maptiler.com/geocoding/${query}.json?key=ZN1Pjco1lBmYKeyRqORC`)
         const data = await response.json()
-        setSearchResults(data)
+        setSearchResults(data.features)
       } catch (error) {
         console.error('Error in search:', error)
       }
@@ -208,20 +215,24 @@ const Map = ({ onSelectLocation, onClose }) => {
           zoom={10}
           style={{ height: '500px', width: '100%' }}
           whenReady={({ target }) => {
-            mapRef.current = target;
-            const bounds = target.getBounds();
+            mapRef.current = target
+            const bounds = target.getBounds()
 
-            fetchBoundsData(bounds);
+            fetchBoundsData(bounds)
           }}
         >
           <TileLayer
-            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            url='https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=ZN1Pjco1lBmYKeyRqORC'
             attribution='&copy; OpenStreetMap contributors'
           />
           <MapEvents onBoundsChange={fetchBoundsData} />
           <MapWithGroups groups={groups} locations={locations} onLocationClick={handleLocationClick} />
 
-          <div className='z-[999] absolute top-4 left-4 poisk'>
+          <div
+            className='z-[999] absolute top-4 left-4 poisk hover:cursor-default'
+            onMouseEnter={() => mapRef.current.scrollWheelZoom.disable()}
+            onMouseLeave={() => mapRef.current.scrollWheelZoom.enable()}
+          >
             <Card>
               <CardContent>
                 <CustomTextField
@@ -233,7 +244,7 @@ const Map = ({ onSelectLocation, onClose }) => {
                   placeholder='Поиск'
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position='start'>
+                      <InputAdornment position='start' onClick={(e) => e.stopPropagation()}>
                         <i className='tabler-search' />
                       </InputAdornment>
                     )
@@ -265,35 +276,23 @@ const Map = ({ onSelectLocation, onClose }) => {
                     <p className='text-base'>{selectedLocation.address}</p>
                   </>
                 )}
-                <div className='grid grid-cols-2 gap-4 mt-6'>
-                  <Button variant='contained' color='secondary' onClick={() => setOpen(false)}>
-                    Закрыть
+                <div className='grid grid-cols-2 gap-6 mt-6'>
+                  <Button variant='outlined' className='!w-full' onClick={() => onClose()}>
+                    Выбрать
                   </Button>
                   <Button
                     variant='contained'
-                    onClick={() => {
-                      if (onSelectLocation && selectedLocation) {
-                        onSelectLocation(selectedLocation.address)
-                      }
-                      setOpen(false)
-                    }}
+                    color='main'
+                    className='!w-full'
+                    onClick={() => onSelectLocation(selectedLocation)}
                   >
-                    Выбрать
+                    Добавить
                   </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
         </Dialog>
-        <div className='absolute top-4 right-4 z-[999] hover:cursor-pointer  poisk w-6 h-6' onClick={() => onClose()}>
-          <Card>
-            <CardContent>
-              <span className='flex items-center justify-center pt-1 text-main-500'>
-                <Icon type='close' width={16} />
-              </span>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   )

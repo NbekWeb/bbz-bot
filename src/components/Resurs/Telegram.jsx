@@ -1,13 +1,17 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 
+import { toast } from 'react-toastify'
+
 import CustomTextField from '@core/components/mui/TextField'
 import CustomAvatar from '@core/components/mui/Avatar'
 import Icon from '../icon/Icon'
+
+import Popover from './Popover'
 
 const DataCard = ({ onAdd, data }) => {
   const [formData, setFormData] = useState({
@@ -22,18 +26,55 @@ const DataCard = ({ onAdd, data }) => {
   })
 
   const fields = [
-    { label: 'API Telegram Бота', key: 'telegram_bot_api', placeholder: 'Введите ваш API ключ' },
-    { label: 'Ваш ID', key: 'telegram_id', placeholder: 'Введите ваш Telegram ID' },
-    { label: 'ID канала Внимание', key: 'telegram_channel_id', placeholder: 'Введите ID канала Внимание' },
-    { label: 'ID канала Получение', key: 'telegram_channel_receive_id', placeholder: 'Введите ID канала Получение' },
-    { label: 'ID канала Отзывы', key: 'telegram_channel_review_id', placeholder: 'Введите ID канала Отзывы' },
+    {
+      label: 'API Telegram Бота',
+      key: 'telegram_bot_api',
+      placeholder: 'Введите API Telegram Бота ',
+      description: 'В бот будут приходить оповещения о выкупах. А также сообщения с кнопкой для ручной оплаты. '
+    },
+    {
+      label: 'Ваш ID',
+      key: 'telegram_id',
+      placeholder: 'Введите ваш Telegram ID',
+      description: 'Укажите айди пользователя телеграм, которому будут приходить сообщения в боте.'
+    },
+    {
+      label: 'ID канала Внимание',
+      key: 'telegram_channel_id',
+      placeholder: 'Введите ID канала Внимание',
+      description: 'Оставьте звук у этого канала! Сюда приходят только важные оповещения об ошибках.'
+    },
+    {
+      label: 'ID канала Получение',
+      key: 'telegram_channel_receive_id',
+      placeholder: 'Введите ID канала Получение',
+      description: 'Сюда приходят коды для получения. А также файлы для курьеров.'
+    },
+    {
+      label: 'ID канала Отзывы',
+      key: 'telegram_channel_review_id',
+      placeholder: 'Введите ID канала Отзывы',
+      description: 'Оповещения о плане на день и оставленных отзывах.'
+    },
     {
       label: 'ID канала Выкупы',
       key: 'telegram_channel_buyout_id',
-      placeholder: 'Введите ID канала Выкупы (дублирование сообщений бота)'
+      placeholder: 'Введите ID канала Выкупы (дублирование сообщений бота)',
+      description:
+        'Сюда дублируются все сообщения из бота. Если вам нужно дать доступ другим членам команды к этой информации.'
     },
-    { label: 'ID канала Отчёты', key: 'telegram_channel_info_id', placeholder: 'Введите ID канала Отчёты' },
-    { label: 'ID канала Монитор', key: 'telegram_channel_monitor_id', placeholder: 'Введите ID канала Монитор' }
+    {
+      label: 'ID канала Отчёты',
+      key: 'telegram_channel_info_id',
+      placeholder: 'Введите ID канала Отчёты',
+      description: 'Хотите просматривать только отчёты в отдельном месте? Это оно.'
+    },
+    {
+      label: 'ID канала Монитор',
+      key: 'telegram_channel_monitor_id',
+      placeholder: 'Введите ID канала Монитор',
+      description: 'Отслеживайте ключевые показатели товара. Позиции по 6 гео, цена, рейтинг, СПП…'
+    }
   ]
 
   const handleChange = (e, key) => {
@@ -45,9 +86,7 @@ const DataCard = ({ onAdd, data }) => {
 
   const handleAdd = () => {
     const nonEmptyData = Object.entries(formData).reduce((acc, [key, value]) => {
-      if (value) {
-        acc[key] = value
-      }
+      acc[key] = value
 
       return acc
     }, {})
@@ -55,11 +94,37 @@ const DataCard = ({ onAdd, data }) => {
     if (onAdd) onAdd(nonEmptyData)
   }
 
+  const handleTestMessage = async (chatId, label) => {
+    const { telegram_bot_api } = formData
+
+    if (telegram_bot_api && formData[chatId]) {
+      const message = 'Тест'
+      const url = `https://api.telegram.org/bot${telegram_bot_api}/sendMessage?chat_id=${formData[chatId]}&text=${message}`
+
+      try {
+        const response = await fetch(url)
+        const data = await response.json()
+
+        if (data.ok) {
+          toast.success('Сообщение отправлено успешно!')
+        } else {
+          toast.error('Ошибка при отправке сообщения!')
+        }
+      } catch (error) {
+        toast.error('Произошла ошибка при отправке запроса!')
+      }
+    } else if (!telegram_bot_api) {
+      toast.error('Ошибка: API Telegram Бота отсутствует! ')
+    } else {
+      toast.error(`Ошибка:${label} отсутствует! `)
+    }
+  }
+
   useEffect(() => {
     if (data) {
       setFormData(prev => ({
         ...prev,
-        ...data // Merge incoming data with existing defaults
+        ...data
       }))
     }
   }, [data])
@@ -80,9 +145,9 @@ const DataCard = ({ onAdd, data }) => {
               <div key={field.key}>
                 <div className='flex items-center gap-2 text-sm font-medium uppercase'>
                   {field.label}
-                  <span>
-                    <Icon type='info' width='20' />
-                  </span>
+                  <div>
+                    <Popover title={field.label} content={field.description} />
+                  </div>
                 </div>
                 <div className='flex items-center w-full gap-4 mt-3'>
                   <div className='max-w-[600px] w-[600px]'>
@@ -96,7 +161,12 @@ const DataCard = ({ onAdd, data }) => {
                     />
                   </div>
                   {index !== 0 && (
-                    <CustomAvatar skin='light' variant='rounded' size={36}>
+                    <CustomAvatar
+                      onClick={() => handleTestMessage(field.key, field.label)}
+                      skin='light'
+                      variant='rounded'
+                      size={36}
+                    >
                       <span className='pt-1 text-main-500'>
                         <Icon type='stat' width='24' />
                       </span>

@@ -206,16 +206,39 @@ code {
 /* Scrollbar track */
 .custom-scroll::-webkit-scrollbar-track {
   width: 10px;
-  background: #c7c2f9; /* White color */
+  background: #c7c2f9;
+  /* White color */
 }
 
 /* Scrollbar thumb */
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: #675dd8; /* Example info color */
+  background: #675dd8;
+  /* Example info color */
   border-radius: 4px;
 }
 
 /* Scrollbar thumb on hover */
 .custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: #675dd8; /* Example primary color */
+  background: #675dd8;
+  /* Example primary color */
+}
+
+.search-results,
+.search-result {
+  user-select: none !important;
+  /* Prevents map dragging during text selection */
+}
+
+.ant-popover {
+  max-width: 300px !important;
+}
+
+.ant-popover .ant-popover-inner,
+.ant-popover .ant-popover-arrow::after {
+  background-color: #00bad1 !important;
+}
+
+.ant-popover .ant-popover-title,
+.ant-popover .ant-popover-inner-content {
+  color: #fff !important;
 }

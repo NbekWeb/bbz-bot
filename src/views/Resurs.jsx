@@ -45,8 +45,7 @@ const DataCard = () => {
     try {
       const response = await api({
         url: '/account-settings/1/',
-        method: 'GET',
-
+        method: 'GET'
       })
 
       setResurs(response.data)
@@ -192,7 +191,7 @@ const DataCard = () => {
       {selectedIndex === 0 && <Proxy data={proxyData} onAdd={handleAddProxy} pagination={handlePage} />}
       {selectedIndex === 1 && <Sms onAdd={handleAddSms} data={resurs} />}
       {selectedIndex === 2 && <Capcha onAdd={handleAddCapcha} data={resurs} />}
-      {selectedIndex === 3 && <Telegram onAdd={handleAddTelegram} />}
+      {selectedIndex === 3 && <Telegram onAdd={handleAddTelegram} data={resurs} />}
     </div>
   )
 }

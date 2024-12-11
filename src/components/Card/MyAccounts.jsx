@@ -51,7 +51,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
     if (field === 'gender') {
       setGender(value)
       onFilterChange({
-        page_size: value,
+        page_size: count,
         gender: value == 'NA' ? '' : value,
         status,
         page: pageIndex,
@@ -121,7 +121,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
           <CustomTextField
             id='delivery-place'
             label='Фильтр по ПВЗ'
-            placeholder='Введите место доставки'
+            placeholder='Введите ПВЗ'
             fullWidth
             value={deliveryPlace} // Bind value to deliveryPlace state
             onChange={e => handleChangeDebounced('deliveryPlace', e.target.value)} // Use debounced function
@@ -157,11 +157,11 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
             <MenuItem value='NA'>Не указан</MenuItem>
           </CustomTextField>
         </div>
-        <div className='overflow-x-auto pt-6'>
+        <div className='pt-6 overflow-x-auto'>
           <table className={tableStyles.table}>
             <thead>
               <tr>
-                <th>Место доставки</th>
+                <th>ПВЗ </th>
                 <th>Телефон</th>
                 <th>Пол</th>
                 <th>Статус</th>
@@ -203,7 +203,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
             </tbody>
           </table>
           {data?.results?.length > 0 && (
-            <div className='flex justify-between items-center mt-5'>
+            <div className='flex items-center justify-between mt-5'>
               <div className='text-sm'>
                 {data.results.length} из {data?.count} аккаунтов
               </div>

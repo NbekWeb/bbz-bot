@@ -5,7 +5,7 @@ import Icon from '../icon/Icon'
 
 const DataCard = ({ full, article = {}, type = 'line' }) => {
   const totalItemCount = article?.items?.reduce((acc, item) => acc + (item?.count || 0), 0) || 0
-  const genders = ['случайный', 'муж', 'жен']
+  const genders = ['нет', 'муж', 'жен']
 
   const genderTotals = genders.reduce((acc, gender) => {
     acc[gender] =
@@ -36,8 +36,9 @@ const DataCard = ({ full, article = {}, type = 'line' }) => {
 
   const hasKeywords = Object.keys(keywordTotals).length > 0
 
-  return
-  ;<div
+  return(
+
+  <div
     className={`flex flex-col  pt-3 pb-6 mt-6 ${type == 'line' ? 'border-t border-dashed ' : 'border rounded-md p-2'}`}
   >
     <div className={`flex items-center gap-3 mb-6 h-11 ${!full && 'hidden'} `}>
@@ -45,7 +46,7 @@ const DataCard = ({ full, article = {}, type = 'line' }) => {
       <div className={`flex flex-col justify-between h-full ${type == 'line' ? '' : 'max-w-[calc(100%-52px)]'}`}>
         <p className={`text-sm limit1   ${type == 'line' ? '' : ' '}} `}> {article?.name}</p>
         <div className='flex items-center justify-between w-full gap-5'>
-          <span className='text-xs text-main-500'> {article?.article} </span>
+          <a  href={`https://www.wildberries.ru/catalog/${article?.article}/detail.aspx`} target="_blank"  className='text-xs text-main-500 hover:underline hover:underline-offset-2'> {article?.article} </a>
           <span className='px-2 py-0.5 text-xs rounded-sm bg-grey-100 text-grey-800'>{article?.price}₽</span>
         </div>
       </div>
@@ -84,6 +85,7 @@ const DataCard = ({ full, article = {}, type = 'line' }) => {
       </div>
     </div>
   </div>
+  )
 }
 
 export default DataCard

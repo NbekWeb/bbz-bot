@@ -92,7 +92,8 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
     try {
       const response = await api({
         url: `/proxy/check/`,
-        method: 'GET'
+        method: 'GET',
+        params: { proxy_id: id }
       })
 
       console.log(response)
@@ -197,7 +198,7 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
                           <span className='hover:text-main-500' onClick={() => handleClickOpen(i)}>
                             <Icon type='edit' width={20} />
                           </span>
-                          <span className='hover:text-main-500' onClick={() => checkProxy()}>
+                          <span className='hover:text-main-500' onClick={() => checkProxy(item.id)}>
                             <Icon type='speed' width={20} />
                           </span>
                           <span className='hover:text-red-500' onClick={() => deleteProxy(item.id)}>

@@ -52,7 +52,7 @@ const DataCard = ({ article, onItemUpdate }) => {
     onItemUpdate({ ...article, items: updatedItems })
   }
 
-  const genders = ['случайный', 'муж', 'жен']
+  const genders = ['нет', 'муж', 'жен']
 
   const handleLocationSelect = address => {
     setOpen(false)
@@ -91,7 +91,7 @@ const DataCard = ({ article, onItemUpdate }) => {
             <tr key={i}>
               <td className='text-center'>
                 <span
-                  className='flex items-center justify-center w-5 border-r border-dashed text-main-500'
+                  className='flex items-center justify-center w-5 border-r border-dashed text-main-500 hover:cursor-pointer'
                   onClick={() => handleDelete(i)}
                 >
                   <Icon type='delete' width='15px' />
