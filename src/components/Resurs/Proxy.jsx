@@ -96,9 +96,7 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
         params: { proxy_id: id }
       })
 
-      console.log(response)
-
-      toast.success('Proxy удалён!')
+      toast.success('Прокси проверен!')
     } catch (error) {
       toast.error('Что-то пошло не так!')
     }
