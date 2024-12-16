@@ -20,7 +20,6 @@ const customIcon = L.icon({
   iconAnchor: [20, 40]
 })
 
-// MapEvents component handles bounds change events
 const MapEvents = ({ onBoundsChange }) => {
   useMapEvents({
     moveend: event => {
@@ -38,7 +37,6 @@ const MapEvents = ({ onBoundsChange }) => {
   return null
 }
 
-// Handles map rendering with groups and locations
 const MapWithGroups = ({ groups, locations, onLocationClick }) => {
   const map = useMap()
 
@@ -163,12 +161,14 @@ const Map = ({ onSelectLocation, onClose }) => {
 
   const handleSearch = async event => {
     const query = event.target.value
+
     setSearchQuery(query)
 
     if (query.length >= 1) {
       try {
         const response = await fetch(`https://api.maptiler.com/geocoding/${query}.json?key=ZN1Pjco1lBmYKeyRqORC`)
         const data = await response.json()
+
         setSearchResults(data.features)
       } catch (error) {
         console.error('Error in search:', error)
@@ -244,7 +244,7 @@ const Map = ({ onSelectLocation, onClose }) => {
                   placeholder='Поиск'
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position='start' onClick={(e) => e.stopPropagation()}>
+                      <InputAdornment position='start' onClick={e => e.stopPropagation()}>
                         <i className='tabler-search' />
                       </InputAdornment>
                     )
@@ -282,7 +282,7 @@ const Map = ({ onSelectLocation, onClose }) => {
                   </Button>
                   <Button
                     variant='contained'
-                    color='main'
+                    color='primary'
                     className='!w-full'
                     onClick={() => onSelectLocation(selectedLocation)}
                   >

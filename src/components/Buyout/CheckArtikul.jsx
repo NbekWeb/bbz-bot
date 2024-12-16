@@ -68,9 +68,10 @@ const DataCard = ({ onAddArticles, data }) => {
 
   const checkAdding = () => {
     const formattedDate = dayjs(date).format('DD-MM-YYYY')
-    const isDateDuplicate = data.articles.some(article => article.date === formattedDate)
 
-    if (isDateDuplicate) {
+    const isDuplicate = data.articles.some(article => article.date === formattedDate && article.article === artikul)
+
+    if (isDuplicate) {
       toast.warning('Эти данные уже существуют!')
 
       return

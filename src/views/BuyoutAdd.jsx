@@ -4,8 +4,6 @@ import { useState } from 'react'
 import Add from '@/components/Buyout/Add'
 
 const DataCard = () => {
-
-
   return (
     <div>
       <Add />

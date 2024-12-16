@@ -166,6 +166,7 @@ const DataCard = ({ onAdd, data }) => {
                       skin='light'
                       variant='rounded'
                       size={36}
+                      className="hover:cursor-pointer hover:opacity-100 opacity-70"
                     >
                       <span className='pt-1 text-main-500'>
                         <Icon type='stat' width='24' />

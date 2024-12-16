@@ -79,7 +79,7 @@ const DataCard = () => {
       })
 
       if (params?.capcha_api_key) {
-        toast.success(' Капчи API добавлен!')
+        toast.success(' Изменения сохранены!')
       } else if (params?.sms_api_key) {
         toast.success(' SMS API добавлен!')
       } else {
