@@ -4,13 +4,11 @@ import { useState } from 'react'
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
-import LinearProgress from '@mui/material/LinearProgress'
+
 import Typography from '@mui/material/Typography'
 
 import classnames from 'classnames'
 
-import AppReactDatepicker from './AppReactDatepicker'
-import CustomTextField from '@core/components/mui/TextField'
 
 import Icon from '../icon/Icon'
 

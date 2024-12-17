@@ -23,13 +23,20 @@ const DataCard = ({ data = {} }) => {
             <span className='text-lg'>Бюджет</span>
             <span className='text-xs'>Выкупов</span>
             <AppReactDatepicker
-            dateFormat='dd.MM.YYYY'
+              dateFormat='dd.MM.YYYY'
               selected={date}
               id='basic-input'
               className='w-[105px]'
               onChange={date => setDate(date)}
               placeholderText='Click to select a date'
-              customInput={<CustomTextField fullWidth />}
+              customInput={
+                <div className='flex items-center relative'>
+                  <CustomTextField fullWidth value={dayjs(date).format('DD/MM/YYYY')} />
+                  <span className='absolute right-2 transform -translate-y-1/2 top-1/2 pt-1'>
+                    <Icon type='calendar' width={20} />
+                  </span>
+                </div>
+              }
             />
           </div>
           <div className='flex flex-col flex-grow'>

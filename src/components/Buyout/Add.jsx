@@ -81,11 +81,12 @@ const DataCard = () => {
 
   const saveArticles = async data => {
     try {
-      const dates = data.articles.map(article => article.date)
-      const uniqueDates = new Set(dates)
+      const isDuplicate = data.articles.some((article, index, articles) => {
+        return articles.some((a, i) => i !== index && a.date === article.date && a.article === article.article)
+      })
 
-      if (uniqueDates.size !== dates.length) {
-        toast.error('В одной дате не может быть несколько статей!')
+      if (isDuplicate) {
+        toast.error('На одну дату не может быть несколько одинаковых артикулов!')
 
         return
       }
@@ -187,7 +188,6 @@ const DataCard = () => {
                   variant='contained'
                   onClick={() => {
                     saveArticles({ ...adds })
-                    console.log(adds)
                   }}
                 >
                   Добавить

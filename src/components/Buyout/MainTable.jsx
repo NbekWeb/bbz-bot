@@ -85,7 +85,13 @@ const DataCard = ({ data = {}, pagination, loading = true }) => {
                           <div className='max-w-44'>
                             <p className=' limit1'>{item?.name}</p>
                             <span className='flex items-center justify-between gap-5'>
-                              <span className='text-main-500'>{item?.article}</span>
+                              <a
+                                href={`https://www.wildberries.ru/catalog/${item?.article}/detail.aspx`}
+                                target='_blank'
+                                className='hover:underline hover:underline-offset-2 text-main-500'
+                              >
+                                <span className='text-main-500'>{item?.article}</span>
+                              </a>
                               <span
                                 className={`rounded-sm px-2 py-1 ${item?.status == 'progress' ? 'bg-main-100 text-main-500' : item?.status == 'not_start' ? 'text-warning-500 bg-warning-100' : item?.status == 'done' ? 'bg-green-100 text-green-500' : item?.status == 'delayed' ? 'text-red-500 text-red-100' : 'bg-grey-100 text-grey-800'}`}
                               >

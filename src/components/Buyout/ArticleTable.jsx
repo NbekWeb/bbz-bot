@@ -58,7 +58,8 @@ const DataCard = ({ article, onItemUpdate }) => {
     setOpen(false)
     const updatedItems = [...article.items]
 
-    updatedItems[selectedIndex].delivery_place = address
+    updatedItems[selectedIndex].delivery_place = address.name
+    console.log(updatedItems[selectedIndex].delivery_place)
     onItemUpdate({ ...article, items: updatedItems })
   }
 
@@ -91,7 +92,7 @@ const DataCard = ({ article, onItemUpdate }) => {
             <tr key={i}>
               <td className='text-center'>
                 <span
-                  className='flex items-center justify-center w-5 border-r border-dashed text-main-500 hover:cursor-pointer'
+                  className='flex items-center justify-center w-5 border-r border-dashed text-main-500 hover:cursor-pointer opacity-70 hover:opacity-100'
                   onClick={() => handleDelete(i)}
                 >
                   <Icon type='delete' width='15px' />

@@ -27,6 +27,19 @@ const Icon = ({ width = '24px', type = 'default' }) => {
             />
           </svg>
         )
+      case 'calendar':
+        return (
+          <svg width={width} height={width} viewBox='0 0 14 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M10 1.25V4.25M4 1.25V4.25M1 7.25H13M1 4.25C1 3.85218 1.15804 3.47064 1.43934 3.18934C1.72064 2.90804 2.10218 2.75 2.5 2.75H11.5C11.8978 2.75 12.2794 2.90804 12.5607 3.18934C12.842 3.47064 13 3.85218 13 4.25V13.25C13 13.6478 12.842 14.0294 12.5607 14.3107C12.2794 14.592 11.8978 14.75 11.5 14.75H2.5C2.10218 14.75 1.72064 14.592 1.43934 14.3107C1.15804 14.0294 1 13.6478 1 13.25V4.25ZM4 10.25H5.5V11.75H4V10.25Z'
+              stroke='currentColor'
+              strokeOpacity='0.4'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        )
       case 'truck':
         return (
           <svg width={width} height={width} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>

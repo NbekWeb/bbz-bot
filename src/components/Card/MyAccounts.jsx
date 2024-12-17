@@ -177,7 +177,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
                     <td>{account.phone_number || 'нет'}</td>
                     <td>
                       <span
-                        className={`${account.gender == 'M' ? 'text-blue-500' : account.gender == 'F' ? 'text-red-500' : ''}`}
+                        className={`text-${statusColor[account.status]}-500`}
                       >
                         {account.gender === 'M' ? 'муж' : account.gender === 'F' ? 'жен' : 'нет'}
                       </span>

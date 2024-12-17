@@ -101,6 +101,7 @@ const SearchHandler = ({ searchResults, setSearchResults, setCenter }) => {
       [boundingbox[0], boundingbox[2]],
       [boundingbox[1], boundingbox[3]]
     ])
+    
     map.fitBounds(bounds)
     setSearchResults([])
     setCenter([boundingbox[0], boundingbox[2]])
@@ -278,7 +279,7 @@ const Map = ({ onSelectLocation, onClose }) => {
                 )}
                 <div className='grid grid-cols-2 gap-6 mt-6'>
                   <Button variant='outlined' className='!w-full' onClick={() => onClose()}>
-                    Выбрать
+                  Закрыть
                   </Button>
                   <Button
                     variant='contained'
@@ -286,7 +287,7 @@ const Map = ({ onSelectLocation, onClose }) => {
                     className='!w-full'
                     onClick={() => onSelectLocation(selectedLocation)}
                   >
-                    Добавить
+                     Выбрать
                   </Button>
                 </div>
               </CardContent>

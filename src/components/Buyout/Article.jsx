@@ -29,7 +29,7 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
 
   dayjs.extend(customParseFormat)
 
-  const incrementCount = () => setCount(prevCount => Math.min(100, prevCount + 1))
+  const incrementCount = () => setCount(prevCount => Math.min(10000, prevCount + 1))
   const decrementCount = () => setCount(prevCount => Math.max(1, prevCount - 1))
 
   const handleSave = () => {
@@ -80,7 +80,7 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
           <div className='flex items-center gap-3 h-11'>
             <div className='flex flex-col items-center justify-center h-full'>
               <CustomAvatar skin='light' variant='rounded' size={20} onClick={handleDeleteArticle}>
-                <span className='pt-1 text-main-500 hover:cursor-pointer'>
+                <span className='pt-1 text-main-500 hover:cursor-pointer opacity-70 hover:opacity-100'>
                   <Icon type='delete' width='14' />
                 </span>
               </CustomAvatar>
@@ -89,7 +89,11 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
             <div className='flex flex-col justify-between h-full'>
               <span className='text-sm limit1 max-w-32'>{article?.name}</span>
               <div className='flex items-center gap-5'>
-                <a href={`https://www.wildberries.ru/catalog/${article?.article}/detail.aspx`} target="_blank" className='hover:underline hover:underline-offset-2 text-main-500'>
+                <a
+                  href={`https://www.wildberries.ru/catalog/${article?.article}/detail.aspx`}
+                  target='_blank'
+                  className='hover:underline hover:underline-offset-2 text-main-500'
+                >
                   <span className='text-xs '>{article?.article} </span>
                 </a>
                 <span className='px-2 py-0.5 text-xs rounded-sm bg-grey-100 text-grey-800'>{article?.price} ₽</span>
@@ -100,15 +104,49 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
               id='basic-input'
               onChange={handleDate}
               placeholderText='Click to select a date'
-              customInput={<CustomTextField fullWidth />}
+              customInput={
+                <div className='flex items-center relative'>
+                  <CustomTextField fullWidth value={dayjs(date).format('DD/MM/YYYY')} />
+                  <span className='absolute right-2 transform -translate-y-1/2 top-1/2 pt-1'>
+                    <Icon type='calendar' width={20} />
+                  </span>
+                </div>
+              }
             />
             <div className='flex items-center gap-1 px-1 rounded-sm h-9 bg-grey-100 text-grey-800'>
               <div
                 className='flex items-center justify-center w-5 h-5 bg-transparent rounded-sm hover:bg-grey-600 hover:text-main-500'
                 onClick={decrementCount}
-              >-
+              >
+                -
               </div>
-              <span className='flex justify-center text-sm font-semibold text-center min-w-8'>{count}</span>
+              <input
+                type='number'
+                min='1'
+                value={count}
+                onChange={e => {
+                  const value = e.target.value
+
+                  if (/^\d+$/.test(value) && Number(value) >= 1) {
+                    setCount(Number(value))
+                  } else if (value === '') {
+                    setCount('')
+                  }
+                }}
+                onBlur={() => {
+                  if (count === '' || count < 1) setCount(1)
+                }}
+                onKeyDown={e => {
+                  if (
+                    ['e', 'E', '+', '-', '.', ','].includes(e.key) ||
+                    (e.key === 'ArrowUp' && count >= 100) ||
+                    (e.key === 'ArrowDown' && count <= 1)
+                  ) {
+                    e.preventDefault()
+                  }
+                }}
+                className='min-w-12 bg-transparent max-w-12 text-sm  px-3 flex justify-center border-none outline-none text-center'
+              />
               <div
                 className='flex items-center justify-center w-5 h-5 bg-transparent rounded-sm hover:bg-grey-600 hover:text-main-500'
                 onClick={incrementCount}
