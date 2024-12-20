@@ -7,10 +7,12 @@ import CardContent from '@mui/material/CardContent'
 import InputAdornment from '@mui/material/InputAdornment'
 import { TextField } from '@mui/material'
 import Button from '@mui/material/Button'
-
+import { toast } from 'react-toastify'
 import { format } from 'date-fns'
 
 import { useTheme } from '@mui/material/styles'
+
+import { api } from '@/utils/api'
 
 import AppReactDatepicker from './AppReactDatepicker'
 import CustomTextField from '@core/components/mui/TextField'
@@ -41,10 +43,21 @@ const Progress = ({ startTimeProp, endTimeProp, saveNew, count }) => {
     saveNew(startTime, endTime, number)
   }
 
-  const clear = () => {
-    setStartTime(startTimeProp)
-    setEndTime(endTimeProp)
-    setNumber(count)
+  const againCreate = async () => {
+    try {
+      const response = await api({
+        url: '/config-create-account/recreate/',
+        method: 'POST'
+      })
+
+      if (response.data.status === 'ok') {
+        toast.success('Успешно пересоздано!')
+      } else {
+        toast.error('Что-то пошло не так!')
+      }
+    } catch (error) {
+      toast.error('Что-то пошло не так!')
+    }
   }
 
   const CustomInput = forwardRef((props, ref) => {
@@ -155,7 +168,7 @@ const Progress = ({ startTimeProp, endTimeProp, saveNew, count }) => {
               <span>Сохранить</span>
             </div>
           </Button>
-          <Button variant='contained' color='info' onClick={clear}>
+          <Button variant='contained' color='info' onClick={() => againCreate()}>
             <div className='flex items-center gap-1'>
               <span>Пересоздать</span>
             </div>

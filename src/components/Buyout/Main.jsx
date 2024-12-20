@@ -14,14 +14,22 @@ import MainTable from './MainTable'
 
 const DataCard = () => {
   const [buyout, setBuyout] = useState(null)
+  const [total, setTotal] = useState(null)
   const [buyoutData, setBuyoutData] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [status, setStatus] = useState('')
 
   const handlePage = pagination => {
     fetchBuyoutData({ ...pagination })
   }
 
-  const fetchBuyoutData = async (params = { page: 1, page_size: 10 }) => {
+  const fetchBuyoutData = async (status = '', param = { page: 1, page_size: 10 }) => {
+    const params = { ...param }
+
+    if (status) {
+      params.status = status
+    }
+
     try {
       const response = await api({
         url: '/buyout/',
@@ -41,7 +49,7 @@ const DataCard = () => {
   const fetchBuyout = async () => {
     try {
       const response = await api({
-        url: '/buyout-task/count/',
+        url: '/buyout-task/total_count/',
         method: 'GET'
       })
 
@@ -53,9 +61,12 @@ const DataCard = () => {
   }
 
   useEffect(() => {
-    fetchBuyoutData()
     fetchBuyout()
   }, [])
+
+  useEffect(() => {
+    fetchBuyoutData(status)
+  }, [status])
 
   return (
     <div>
@@ -68,7 +79,7 @@ const DataCard = () => {
       </div>
       <div className='flex flex-col gap-12'>
         <Top />
-        <Statis buyout={buyoutData} />
+        <Statis buyout={buyoutData} onStatus={val => setStatus(val)} />
         <MainTable data={buyout} pagination={handlePage} loading={loading} />
       </div>
     </div>

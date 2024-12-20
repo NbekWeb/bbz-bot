@@ -7,28 +7,53 @@ import CardContent from '@mui/material/CardContent'
 import CustomAvatar from '@core/components/mui/Avatar'
 import Icon from '../icon/Icon'
 
-const DataCard = ({ buyout = {} }) => {
+const DataCard = ({ buyout = {}, onStatus }) => {
+  const [select, setSelect] = useState(0)
+
   return (
     <Card>
       <CardContent>
         <div className='grid w-full grid-cols-5 gap-4 pb-6 capitalize border-b'>
           <div
-            className={`flex hover:cursor-pointer shadow bg-main-500 items-center justify-center text-white resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}
+            onClick={() => {
+              setSelect(0)
+              onStatus('')
+            }}
+            className={`flex hover:cursor-pointer shadow ${select == 0 && 'bg-main-500 text-white'} items-center justify-center  resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}
           >
             <span>Все</span>
           </div>
-          <div className={`flex hover:cursor-pointer   items-center justify-center resurs-btn py-2 rounded-md  hover:shadow hover:text-main-500  hover:bg-main-100`}>
+          <div
+            onClick={() => {
+              setSelect(1)
+              onStatus('progress')
+            }}
+            className={`flex hover:cursor-pointer shadow ${select == 1 && 'bg-main-500 text-white'}   items-center justify-center resurs-btn py-2 rounded-md  hover:shadow hover:text-main-500  hover:bg-main-100`}
+          >
             <span>Активные</span>
           </div>
           <div
-            className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}
+            onClick={() => {
+              setSelect(2)
+              onStatus('done')
+            }}
+            className={`flex hover:cursor-pointer shadow ${select == 2 && 'bg-main-500 text-white'} items-center justify-center resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}
           >
             <span>Успешные</span>
           </div>
-          <div className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}>
+          <div
+            onClick={() => {
+              setSelect(3)
+              onStatus('error')
+            }}
+            className={`flex hover:cursor-pointer shadow ${select == 3 && 'bg-main-500 text-white'} items-center justify-center resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}
+          >
             <span>С ошибками</span>
           </div>
-          <div className={`flex hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}>
+          <div
+
+            className={`flex shadow ${select == 4 && 'bg-main-500 text-white'} hover:cursor-pointer items-center justify-center resurs-btn py-2 rounded-md hover:shadow hover:text-main-500  hover:bg-main-100`}
+          >
             <span>к оплате</span>
           </div>
         </div>
@@ -44,7 +69,7 @@ const DataCard = ({ buyout = {} }) => {
           </div>
           <div className='flex justify-between px-6 border-r'>
             <div className='flex flex-col'>
-              <span className='text-xl font-medium'>{buyout?.succes}</span>
+              <span className='text-xl font-medium'>{buyout?.success}</span>
               <span className='text-sm'>Выполнено</span>
             </div>
             <CustomAvatar skin='light' variant='rounded' size={36}>
