@@ -14,7 +14,7 @@ import tableStyles from '@core/styles/table.module.css'
 const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
   const [count, setCount] = useState(10)
   const [gender, setGender] = useState('NA')
-  const [status, setStatus] = useState('CA')
+  const [status, setStatus] = useState('')
   const [pageIndex, setPageIndex] = useState(1)
   const [deliveryPlace, setDeliveryPlace] = useState('')
 
@@ -136,6 +136,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
             fullWidth
             SelectProps={{ displayEmpty: true }}
           >
+            <MenuItem value=''>Не указан</MenuItem>
             <MenuItem value='A'>Активен</MenuItem>
             <MenuItem value='AA'>Чужая активность</MenuItem>
             <MenuItem value='LA'>Потеря сессии</MenuItem>
@@ -176,9 +177,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
                     <td>{account.delivery_place || 'нет'}</td>
                     <td>{account.phone_number || 'нет'}</td>
                     <td>
-                      <span
-                        className={`text-${statusColor[account.status]}-500`}
-                      >
+                      <span className={`text-${statusColor[account.status]}-500`}>
                         {account.gender === 'M' ? 'муж' : account.gender === 'F' ? 'жен' : 'нет'}
                       </span>
                     </td>
