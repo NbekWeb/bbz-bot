@@ -73,6 +73,10 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
     }
   }, [article.date])
 
+  useEffect(() => {
+    handleSave()
+  }, [])
+
   return (
     <Card>
       <CardContent>
@@ -145,7 +149,7 @@ const DataCard = ({ article = {}, onSaveCount, onItemUpdate, onDeleteArticle }) 
                     e.preventDefault()
                   }
                 }}
-                className='min-w-12 bg-transparent max-w-12 text-sm  px-3 flex justify-center border-none outline-none text-center'
+                className='min-w-12 bg-transparent max-w-12 text-sm  px-3 flex justify-center border-none outline-none text-center text-main-500'
               />
               <div
                 className='flex items-center justify-center w-5 h-5 bg-transparent rounded-sm hover:bg-grey-600 hover:text-main-500'

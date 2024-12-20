@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -37,12 +37,12 @@ const DataCard = () => {
   const handleSaveCount = (newCount, index) => {
     setAdds(prev => {
       const updatedArticles = [...prev.articles]
-      const currentItems = updatedArticles[index].items
+      const currentItems = updatedArticles[index]?.items
 
-      if (currentItems.length > newCount) {
+      if (currentItems?.length > newCount) {
         // Remove excess items
         updatedArticles[index].items = currentItems.slice(0, newCount)
-      } else if (currentItems.length < newCount) {
+      } else if (currentItems?.length < newCount) {
         // Add missing items
         const itemsToAdd = newCount - currentItems.length
 
@@ -63,10 +63,16 @@ const DataCard = () => {
   }
 
   const handleAddArticles = newArticles => {
-    setAdds(prev => ({
-      ...prev,
-      articles: [...newArticles, ...prev.articles]
-    }))
+    setAdds(prev => {
+      const updatedAdds = {
+        ...prev,
+        articles: [...prev.articles, ...newArticles]
+      }
+
+      handleSaveCount(1, updatedAdds.articles.length - 1)
+
+      return updatedAdds
+    })
   }
 
   const handleItemUpdate = (updatedItems, index) => {
