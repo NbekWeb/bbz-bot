@@ -20,7 +20,7 @@ import CustomTextField from '@core/components/mui/TextField'
 import Icon from '../icon/Icon'
 import CustomAvatar from '@core/components/mui/Avatar'
 
-const Progress = ({ startTimeProp, endTimeProp, saveNew, count }) => {
+const Progress = ({ startTimeProp, endTimeProp, saveNew, count, onUpdate }) => {
   const theme = useTheme()
 
   const [startTime, setStartTime] = useState(startTimeProp)
@@ -51,6 +51,7 @@ const Progress = ({ startTimeProp, endTimeProp, saveNew, count }) => {
       })
 
       if (response.data.status === 'ok') {
+        onUpdate()
         toast.success('Успешно пересоздано!')
       } else {
         toast.error('Что-то пошло не так!')

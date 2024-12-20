@@ -181,6 +181,7 @@ const DataCard = () => {
             endTimeProp={endTime}
             count={account?.accounts_count}
             saveNew={handleSave}
+            onUpdate={() => fetchAccountAll()}
           />
         </div>
       </div>
