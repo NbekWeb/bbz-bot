@@ -184,7 +184,7 @@ const SubMenu = (props, ref) => {
 
     toggleOpenSubmenu?.({ level, label, active, id })
     onOpenChange?.(!isSubMenuOpen)
-    if (openSubmenusRef?.current && openSubmenusRef?.current.length > 0) openSubmenusRef.current = []
+    if (openSubmenusRef?.current && openSubmenusRef?.current?.length > 0) openSubmenusRef.current = []
   }
 
   const handleOnClick = event => {

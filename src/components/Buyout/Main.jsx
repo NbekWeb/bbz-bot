@@ -20,7 +20,7 @@ const DataCard = () => {
   const [status, setStatus] = useState('')
 
   const handlePage = pagination => {
-    fetchBuyoutData({ ...pagination })
+    fetchBuyoutData(status, { ...pagination })
   }
 
   const fetchBuyoutData = async (status = '', param = { page: 1, page_size: 10 }) => {

@@ -36,55 +36,60 @@ const DataCard = ({ full, article = {}, type = 'line' }) => {
 
   const hasKeywords = Object.keys(keywordTotals).length > 0
 
-  return(
-
-  <div
-    className={`flex flex-col  pt-3 pb-6 mt-6 ${type == 'line' ? 'border-t border-dashed ' : 'border rounded-md p-2'}`}
-  >
-    <div className={`flex items-center gap-3 mb-6 h-11 ${!full && 'hidden'} `}>
-      <img src={article.image || '/images/net.jpg'} className='h-10 rounded-sm' />
-      <div className={`flex flex-col justify-between h-full ${type == 'line' ? '' : 'max-w-[calc(100%-52px)]'}`}>
-        <p className={`text-sm limit1   ${type == 'line' ? '' : ' '}} `}> {article?.name}</p>
-        <div className='flex items-center justify-between w-full gap-5'>
-          <a  href={`https://www.wildberries.ru/catalog/${article?.article}/detail.aspx`} target="_blank"  className='text-xs text-main-500 hover:underline hover:underline-offset-2'> {article?.article} </a>
-          <span className='px-2 py-0.5 text-xs rounded-sm bg-grey-100 text-grey-800'>{article?.price}₽</span>
+  return (
+    <div
+      className={`flex flex-col  pt-3 pb-6 mt-6 ${type == 'line' ? 'border-t border-dashed ' : 'border rounded-md p-2'}`}
+    >
+      <div className={`flex items-center gap-3 mb-6 h-11 ${!full && 'hidden'} `}>
+        <img src={article.image || '/images/net.jpg'} className='h-10 rounded-sm' />
+        <div className={`flex flex-col justify-between h-full ${type == 'line' ? '' : 'max-w-[calc(100%-52px)]'}`}>
+          <p className={`text-sm limit1   ${type == 'line' ? '' : ' '}} `}> {article?.name}</p>
+          <div className='flex items-center justify-between w-full gap-5'>
+            <a
+              href={`https://www.wildberries.ru/catalog/${article?.article}/detail.aspx`}
+              target='_blank'
+              className='text-xs text-main-500 hover:underline hover:underline-offset-2'
+            >
+              {article?.article}
+            </a>
+            <span className='px-2 py-0.5 text-xs rounded-sm bg-grey-100 text-grey-800'>{article?.price}₽</span>
+          </div>
+        </div>
+      </div>
+      <div className={`grid ${type == 'line' ? 'grid-cols-4' : 'grid-cols-1'} gap-6`}>
+        <div className={`flex flex-col gap-1 ${type != 'line' && 'border-t pt-1'}`}>
+          <span className='text-sm'>Выкупов: {article?.items?.length}</span>
+          <span className='text-sm'>Количество: {totalItemCount}</span>
+          <span className='text-sm'>Сумма: {article.price * totalItemCount} ₽</span>
+        </div>
+        <div className={`flex flex-col gap-1 ${type != 'line' && 'border-t pt-1'}`}>
+          <span className='text-sm'>Пол</span>
+          {genders.map((gender, i) => (
+            <span className='text-sm' key={i}>
+              {gender}: {genderTotals[gender]}
+            </span>
+          ))}
+        </div>
+        <div className={`flex flex-col gap-1 ${type != 'line' && 'border-t pt-1'}  ${!hasSize && 'hidden'}`}>
+          <span className='text-sm'>Размеры</span>
+          {Object.entries(sizeTotals).map(([size, count]) => (
+            <span className='flex text-sm' key={size}>
+              <span className='limit1'>{size}</span>
+              <span className='min-w-10'> : {count}</span>
+            </span>
+          ))}
+        </div>
+        <div className={`flex flex-col gap-1 ${type != 'line' && 'border-t pt-1'} ${!hasKeywords && 'hidden'}`}>
+          <span className='text-sm'>Поисковые запросы</span>
+          {Object.entries(keywordTotals).map(([keyword, count]) => (
+            <span className='flex text-sm ' key={keyword}>
+              <span className='limit1'>{keyword.split(' ')[0]}</span>
+              <span className='min-w-10'>: {count}</span>
+            </span>
+          ))}
         </div>
       </div>
     </div>
-    <div className={`grid ${type == 'line' ? 'grid-cols-4' : 'grid-cols-1'} gap-6`}>
-      <div className={`flex flex-col gap-1 ${type != 'line' && 'border-t pt-1'}`}>
-        <span className='text-sm'>Выкупов: {article?.items?.length}</span>
-        <span className='text-sm'>Количество: {totalItemCount}</span>
-        <span className='text-sm'>Сумма: {article.price * totalItemCount} ₽</span>
-      </div>
-      <div className={`flex flex-col gap-1 ${type != 'line' && 'border-t pt-1'}`}>
-        <span className='text-sm'>Пол</span>
-        {genders.map((gender, i) => (
-          <span className='text-sm' key={i}>
-            {gender}: {genderTotals[gender]}
-          </span>
-        ))}
-      </div>
-      <div className={`flex flex-col gap-1 ${type != 'line' && 'border-t pt-1'}  ${!hasSize && 'hidden'}`}>
-        <span className='text-sm'>Размеры</span>
-        {Object.entries(sizeTotals).map(([size, count]) => (
-          <span className='flex text-sm' key={size}>
-            <span className='limit1'>{size}</span>
-            <span className='min-w-10'> : {count}</span>
-          </span>
-        ))}
-      </div>
-      <div className={`flex flex-col gap-1 ${type != 'line' && 'border-t pt-1'} ${!hasKeywords && 'hidden'}`}>
-        <span className='text-sm'>Поисковые запросы</span>
-        {Object.entries(keywordTotals).map(([keyword, count]) => (
-          <span className='flex text-sm ' key={keyword}>
-            <span className='limit1'>{keyword.split(' ')[0]}</span>
-            <span className='min-w-10'>: {count}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  </div>
   )
 }
 

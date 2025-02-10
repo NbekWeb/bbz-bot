@@ -101,13 +101,13 @@ const SearchHandler = ({ searchResults, setSearchResults, setCenter }) => {
       [boundingbox[0], boundingbox[2]],
       [boundingbox[1], boundingbox[3]]
     ])
-    
+
     map.fitBounds(bounds)
     setSearchResults([])
     setCenter([boundingbox[0], boundingbox[2]])
   }
 
-  if (!searchResults || searchResults.length === 0) return null
+  if (!searchResults || searchResults?.length === 0) return null
 
   return (
     <div className='flex flex-col gap-1 mb-2 ml-4 search-results'>

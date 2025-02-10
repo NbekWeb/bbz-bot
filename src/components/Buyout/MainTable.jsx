@@ -34,7 +34,8 @@ const DataCard = ({ data = {}, pagination, loading = true }) => {
 
     if (field == 'count') {
       setCount(value)
-      pagination({ page, page_size: value })
+      setPage(1)
+      pagination({ page: 1, page_size: value })
     }
   }
 
@@ -72,7 +73,6 @@ const DataCard = ({ data = {}, pagination, loading = true }) => {
                   <th className='text-left'>Пол</th>
                   <th className='text-left'>ПВЗ</th>
                   <th className='text-left'>Статус</th>
-                  <th className='text-left'>Цена</th>
                 </tr>
               </thead>
               <tbody>
@@ -128,14 +128,12 @@ const DataCard = ({ data = {}, pagination, loading = true }) => {
                         </span>
                       </Typography>
                     </td>
-                    <td>
-                      <Typography>{item?.price}</Typography>
-                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div className='flex justify-end pt-6 border-t'>
+            <div className='flex flex-wrap items-center justify-between gap-6 mt-6'>
+              <div>{data?.results?.length} из {data?.count} выкупов</div>
               <Pagination
                 shape='rounded'
                 color='primary'

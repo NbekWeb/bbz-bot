@@ -213,7 +213,7 @@ const Proxy = ({ data = {}, onAdd, pagination }) => {
             <div className='flex items-center justify-between mt-5'>
               <div className='flex items-center gap-3'>
                 <div className='text-sm'>
-                  {data.results.length} из {data?.count} аккаунтов
+                  {data?.results?.length} из {data?.count} аккаунтов
                 </div>
                 <CustomTextField
                   select

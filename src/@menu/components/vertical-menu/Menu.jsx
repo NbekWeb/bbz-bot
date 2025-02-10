@@ -60,7 +60,7 @@ const Menu = (props, ref) => {
 
   const toggleOpenSubmenu = useCallback(
     (...submenus) => {
-      if (!submenus.length) return
+      if (!submenus?.length) return
       const openSubmenuCopy = [...openSubmenu]
 
       submenus.forEach(({ level, label, active = false, id }) => {

@@ -13,7 +13,7 @@ import tableStyles from '@core/styles/table.module.css'
 
 const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
   const [count, setCount] = useState(10)
-  const [gender, setGender] = useState('NA')
+  const [gender, setGender] = useState('')
   const [status, setStatus] = useState('')
   const [pageIndex, setPageIndex] = useState(1)
   const [deliveryPlace, setDeliveryPlace] = useState('')
@@ -41,7 +41,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
 
       onFilterChange({
         page_size: value,
-        gender: gender == 'NA' ? '' : gender,
+        gender,
         status,
         page: pageIndex,
         delivery_place: deliveryPlace
@@ -52,7 +52,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
       setGender(value)
       onFilterChange({
         page_size: count,
-        gender: value == 'NA' ? '' : value,
+        gender: value,
         status,
         page: pageIndex,
         delivery_place: deliveryPlace
@@ -63,7 +63,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
       setStatus(value)
       onFilterChange({
         page_size: value,
-        gender: gender == 'NA' ? '' : gender,
+        gender,
         status: value,
         page: pageIndex,
         delivery_place: deliveryPlace
@@ -74,7 +74,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
       setPageIndex(value)
       onFilterChange({
         page_size: value,
-        gender: gender == 'NA' ? '' : gender,
+        gender,
         status,
         page: value,
         delivery_place: deliveryPlace
@@ -86,7 +86,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
 
       onFilterChange({
         page_size: value,
-        gender: gender == 'NA' ? '' : gender,
+        gender,
         status,
         page: pageIndex,
         delivery_place: value
@@ -155,7 +155,7 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
           >
             <MenuItem value='M'>Мужской</MenuItem>
             <MenuItem value='F'>Женский</MenuItem>
-            <MenuItem value='NA'>Не указан</MenuItem>
+            <MenuItem value=''>Не указан</MenuItem>
           </CustomTextField>
         </div>
         <div className='pt-6 overflow-x-auto'>
@@ -165,23 +165,23 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
                 <th>ПВЗ </th>
                 <th>Телефон</th>
                 <th>Пол</th>
-                <th>Статус</th>
+                <th className='text-center'>Статус</th>
                 <th>Дата обновления</th>
                 <th>Дата регистрации</th>
               </tr>
             </thead>
             <tbody>
-              {data?.results.length > 0 ? (
-                data.results.map((account, index) => (
+              {data?.results?.length > 0 ? (
+                data?.results?.map((account, index) => (
                   <tr key={index} className='!border-b'>
                     <td>{account.delivery_place || 'нет'}</td>
                     <td>{account.phone_number || 'нет'}</td>
                     <td>
-                      <span className={`text-${statusColor[account.status]}-500`}>
-                        {account.gender === 'M' ? 'муж' : account.gender === 'F' ? 'жен' : 'нет'}
+                      <span className={account?.gender == 'M' ? 'text-blue-500' : account?.gender == 'F' ? 'text-red-500' : 'text-grey-500'}>
+                        {account?.gender === 'M' ? 'муж' : account?.gender === 'F' ? 'жен' : 'нет'}
                       </span>
                     </td>
-                    <td className='flex items-center'>
+                    <td className='flex items-center justify-center '>
                       <span
                         className={`flex h-6 items-center justify-center rounded-md px-2.5 text-xs text-${statusColor[account.status]}-500 bg-${statusColor[account.status]}-100 `}
                       >
@@ -204,14 +204,14 @@ const MyAccounts = ({ data = { results: [] }, onFilterChange }) => {
           {data?.results?.length > 0 && (
             <div className='flex items-center justify-between mt-5'>
               <div className='text-sm'>
-                {data.results.length} из {data?.count} аккаунтов
+                {data?.results?.length} из {data?.count} аккаунтов
               </div>
               <Pagination
                 shape='rounded'
                 color='primary'
                 variant='tonal'
-                count={data.count}
-                page={1}
+                count={Math.ceil(data.count / 10)}
+                page={pageIndex}
                 onChange={(_, page) => {
                   handleChangeDebounced('pageIndex', page)
                 }}

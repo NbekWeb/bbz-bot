@@ -217,26 +217,32 @@ const CommentCard = ({ seriesData, onStatusChange, period }) => {
                             <img src={item.image || '/images/net.jpg'} className='rounded-md h-9 w-9' />
                             <div className='flex flex-col justify-between text-sm max-w-32'>
                               <span className='limit1 '>{item.name || 'Без имени'}</span>
-                              <span className='text-main-500 '>{item.article}</span>
+                              <a
+                                href={`https://www.wildberries.ru/catalog/${item.article}/detail.aspx`}
+                                target='_blank'
+                                className='text-xs text-main-500 hover:underline hover:underline-offset-2'
+                              >
+                                {item.article}
+                              </a>
                             </div>
                           </div>
                         </td>
-                        <td>{item.total}</td>
-                        <td>{item.gender_info}</td>
-                        <td>{item.text_free}</td>
+                        <td>{item?.total}</td>
+                        <td>{item?.gender_info}</td>
+                        <td>{item?.text_free}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
                 <div className='flex flex-wrap items-center justify-between gap-6 mt-6'>
                   <div>
-                    {article?.data?.length} из {article.total} артикулов
+                    {article?.data?.length} из {article?.total} артикулов
                   </div>
                   <Pagination
                     shape='rounded'
                     color='primary'
                     variant='tonal'
-                    count={Math.ceil(article.total / 5)}
+                    count={Math.ceil(article?.total / 5)}
                     page={page}
                     onChange={(_, page) => {
                       setPage(page)

@@ -52,8 +52,6 @@ const DataCard = () => {
 
       setAccount(response.data)
 
-      console.log(response.data)
-
       setStartTime(parseTime(response.data.from_time))
 
       setEndTime(parseTime(response.data.to_time))
@@ -112,6 +110,8 @@ const DataCard = () => {
         params
       })
 
+      console.log(response.data)
+
       setAccounts(response.data)
     } catch (error) {
       console.error('Error fetching account data:', error)
@@ -121,8 +121,6 @@ const DataCard = () => {
   }
 
   const handleSave = async (startTime, endTime, number) => {
-    console.log('Saved data:', { startTime, endTime, number })
-
     changeLoading(1)
 
     try {
@@ -131,7 +129,7 @@ const DataCard = () => {
         method: 'PUT',
         data: {
           accounts_count: number,
-          from_time: dayjs(startTime).format('HH:mm:ss'), // Adjusted format to HH:mm:ss
+          from_time: dayjs(startTime).format('HH:mm:ss'),
           to_time: dayjs(endTime).format('HH:mm:ss'),
           user: 1
         }
@@ -139,6 +137,7 @@ const DataCard = () => {
 
       toast.success('Изменения сохранены!')
       fetchAccountData()
+      fetchAccountAll()
     } catch (error) {
       toast.error('Что-то пошло не так!')
     } finally {
@@ -154,7 +153,9 @@ const DataCard = () => {
     fetchAccountData()
     fetchAccountCount()
     fetchAccountAll()
-    fetchAccounts()
+
+    // fetchAccounts()
+    
   }, [])
 
   useEffect(() => {
@@ -181,7 +182,10 @@ const DataCard = () => {
             endTimeProp={endTime}
             count={account?.accounts_count}
             saveNew={handleSave}
-            onUpdate={() => fetchAccountAll()}
+            onUpdate={() => {
+              fetchAccountAll()
+              fetchAccountData()
+            }}
           />
         </div>
       </div>
